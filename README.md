@@ -1,38 +1,41 @@
-# 🚀 Sistema de Controle de Carenagens
+# Sistema de Controle de Carenagens
 
-Sistema web desenvolvido para auxiliar no controle e gerenciamento do processo de recebimento, conferência e acompanhamento de carenagens.
+Sistema web desenvolvido para controle e gerenciamento do processo de recebimento, conferência e acompanhamento de carenagens.
 
-## 📋 Sobre o projeto
+## Sobre o Projeto
 
-O projeto foi desenvolvido com o objetivo de organizar o fluxo operacional de carenagens, permitindo registrar entradas, realizar conferências, identificar divergências e manter um histórico das movimentações.
+O sistema foi desenvolvido com o objetivo de digitalizar e organizar o fluxo operacional relacionado ao controle de carenagens.
 
-A aplicação busca reduzir controles manuais, melhorar a rastreabilidade das informações e facilitar o acompanhamento das atividades.
+A aplicação permite registrar entradas, realizar conferências, identificar divergências, registrar avarias e manter o histórico das movimentações.
 
-## ⚙️ Funcionalidades
+A solução busca reduzir controles manuais, centralizar informações e aumentar a rastreabilidade dos processos.
 
-- 🔐 Sistema de login
-- 📦 Cadastro de novas entregas
-- 🔎 Consulta e gerenciamento de registros
-- ✅ Conferência de quantidades
-- ⚠️ Registro de divergências
-- 🛠️ Controle de avarias
-- 📋 Histórico de movimentações
-- 👤 Gerenciamento de operadores
-- 🔑 Alteração de senha
-- 📊 Integração com base de dados
-- 📑 Utilização de planilha Excel como base de informações
+## Funcionalidades
 
-## 🛠️ Tecnologias utilizadas
+- Sistema de autenticação e login
+- Cadastro de novas entregas
+- Registro de recebimentos
+- Conferência de quantidades
+- Identificação de divergências
+- Registro de avarias
+- Consulta e gerenciamento de registros
+- Histórico de movimentações
+- Gerenciamento de operadores
+- Alteração de senha
+- Integração com banco de dados
+- Integração com arquivos Excel
 
-- **Python**
-- **Flask**
-- **SQLite**
-- **HTML5**
-- **JavaScript**
-- **OpenPyXL**
-- **Excel**
+## Tecnologias Utilizadas
 
-## 🗂️ Estrutura do projeto
+- Python
+- Flask
+- SQLite
+- HTML5
+- JavaScript
+- OpenPyXL
+- Microsoft Excel
+
+## Estrutura do Projeto
 
 ```text
 sistema-controle-carenagens/
