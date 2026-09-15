@@ -1,54 +1,58 @@
 # Sistema de Controle de Carenagens
 
-Sistema web desenvolvido para controle e gerenciamento do processo de recebimento, conferência e acompanhamento de carenagens.
+Sistema web desenvolvido para digitalizar e organizar o processo de recebimento, conferência e acompanhamento de carenagens.
 
-## Sobre o Projeto
+## Sobre o projeto
 
-O sistema foi desenvolvido com o objetivo de digitalizar e organizar o fluxo operacional relacionado ao controle de carenagens.
+O sistema foi desenvolvido para centralizar o controle operacional das entradas de carenagens, permitindo acompanhar cada etapa do processo desde o recebimento até a finalização.
 
-A aplicação permite registrar entradas, realizar conferências, identificar divergências, registrar avarias e manter o histórico das movimentações.
-
-A solução busca reduzir controles manuais, centralizar informações e aumentar a rastreabilidade dos processos.
+A aplicação foi projetada com foco em organização, rastreabilidade e redução de controles manuais.
 
 ## Funcionalidades
 
-- Sistema de autenticação e login
+- Autenticação de usuários
+- Controle de acesso por função
 - Cadastro de novas entregas
 - Registro de recebimentos
+- Cadastro e consulta de peças
+- Preenchimento automático de descrições através da base de referências
 - Conferência de quantidades
 - Identificação de divergências
 - Registro de avarias
-- Consulta e gerenciamento de registros
-- Histórico de movimentações
-- Gerenciamento de operadores
-- Alteração de senha
-- Integração com banco de dados
-- Integração com arquivos Excel
+- Controle de adequação da embalagem
+- Anexação de NF-e
+- Conferência da NF-e
+- Aprovação ou rejeição da NF-e
+- Histórico das movimentações
+- Gerenciamento de usuários
+- Alteração e redefinição de senhas
+- Integração com banco de dados SQLite
+- Integração com arquivo Excel para consulta de referências
 
-## Tecnologias Utilizadas
-
-- Python
-- Flask
-- SQLite
-- HTML5
-- JavaScript
-- OpenPyXL
-- Microsoft Excel
-
-## Estrutura do Projeto
+## Fluxo do processo
 
 ```text
-sistema-controle-carenagens/
-│
-├── app.py
-├── carenagens.db
-├── Base de Dados - Carenagens.xlsx
-├── index.html
-├── login.html
-├── gerenciamento.html
-├── nova_entrega.html
-├── recebimentos_operador.html
-├── conteudo_operador.html
-├── trocar_senha.html
-├── histórico_fluxo.json
-└── README.md
+Nova Entrega
+     |
+     v
+Recebimento
+     |
+     v
+Conferência Física
+     |
+     v
+Anexação da NF-e
+     |
+     v
+Conferência da NF-e
+     |
+     +---- Rejeitada
+     |
+     v
+Conferência Aprovada
+     |
+     v
+Entrada Realizada
+     |
+     v
+Finalização
