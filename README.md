@@ -1,14 +1,14 @@
 # Sistema de Controle de Carenagens
 
-Sistema web desenvolvido para digitalizar e organizar o processo de recebimento, conferência e acompanhamento de carenagens.
+Sistema web desenvolvido para digitalizar, organizar e acompanhar o processo operacional de recebimento, conferência e entrada de carenagens.
 
 ## Sobre o projeto
 
-O sistema foi desenvolvido para centralizar o controle operacional das entradas de carenagens, permitindo acompanhar cada etapa do processo desde o recebimento até a finalização.
+O sistema foi desenvolvido com o objetivo de centralizar o controle das etapas relacionadas ao recebimento de carenagens, reduzindo controles manuais e aumentando a rastreabilidade das operações.
 
-A aplicação foi projetada com foco em organização, rastreabilidade e redução de controles manuais.
+A aplicação permite registrar entregas, realizar conferências, identificar divergências, anexar documentos fiscais e acompanhar o andamento de cada recebimento.
 
-## Funcionalidades
+## Principais funcionalidades
 
 - Autenticação de usuários
 - Controle de acesso por função
@@ -19,10 +19,12 @@ A aplicação foi projetada com foco em organização, rastreabilidade e reduç�
 - Conferência de quantidades
 - Identificação de divergências
 - Registro de avarias
-- Controle de adequação da embalagem
+- Controle da adequação da embalagem
 - Anexação de NF-e
+- Visualização da NF-e diretamente no sistema
 - Conferência da NF-e
 - Aprovação ou rejeição da NF-e
+- Controle das entradas pendentes
 - Histórico das movimentações
 - Gerenciamento de usuários
 - Alteração e redefinição de senhas
@@ -46,10 +48,10 @@ Anexação da NF-e
      v
 Conferência da NF-e
      |
-     +---- Rejeitada
-     |
-     v
-Conferência Aprovada
+     +------------------+
+     |                  |
+     v                  v
+Aprovada            Rejeitada
      |
      v
 Entrada Realizada
