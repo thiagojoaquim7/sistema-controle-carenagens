@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nova Entrega - Controle de Carenagens</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#172033}.topo{height:70px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center;padding:0 30px}.logo{font-weight:bold;text-decoration:none;color:#172033}.sub{font-size:11px;color:#8992a1;margin-top:3px}.sair{color:#d9271c;text-decoration:none;font-size:12px;font-weight:bold}.conteudo{max-width:1100px;margin:auto;padding:35px}.cab{margin-bottom:22px}.cab h1{margin:0}.cab p{color:#7b8494;font-size:13px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:25px}.campo label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}.campo input{width:100%;height:40px;border:1px solid #dfe3e8;border-radius:7px;padding:0 10px}.grid{display:grid;grid-template-columns:1fr;max-width:300px}.tabela{width:100%;border-collapse:collapse;margin-top:20px}.tabela th{background:#f8f9fb;text-align:left;padding:12px;font-size:11px;color:#6b7280}.tabela td{padding:10px;border-bottom:1px solid #eef0f3}.tabela input{width:100%;height:38px;border:1px solid #dfe3e8;border-radius:6px;padding:0 9px}.btn{background:#d9271c;color:#fff;border:0;border-radius:7px;padding:11px 18px;font-weight:bold;cursor:pointer}.btn-add{margin-top:14px;margin-bottom:8px;background:#fff;border:1px solid #dfe3e8;border-radius:7px;padding:9px 13px;cursor:pointer}.acoes{margin-top:32px;display:flex;justify-content:flex-end}.alerta{padding:12px;border-radius:7px;margin-bottom:15px;font-size:12px}.sucesso{background:#eaf7ef;color:#247746}.erro{background:#fdecea;color:#b42318}
+</style>
+</head>
+<body>
+<header class="topo">
+    <a class="logo" href="{{ url_for('inicio') }}">AVELLOZ<div class="sub">Controle de Carenagens</div></a>
+    <div><strong>{{ usuario_logado["nome"] }}</strong> · <a class="sair" href="{{ url_for('logout') }}">Sair</a></div>
+</header>
+<main class="conteudo">
+    <div class="cab"><h1>Nova Entrega</h1><p>Informe somente os dados da entrega realizada.</p></div>
+    {% with mensagens=get_flashed_messages(with_categories=true) %}
+      {% for categoria,mensagem in mensagens %}<div class="alerta {{ categoria }}">{{ mensagem }}</div>{% endfor %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('salvar_nova_entrega') }}" class="card">
+        <div class="grid">
+            <div class="campo"><label>Data da entrega *</label><input type="date" name="data" value="{{ data_atual }}" required></div>
+        </div>
+        <h3>Peças</h3>
+        <table class="tabela">
+            <thead><tr><th>Referência</th><th>Descrição</th><th>Quantidade entregue</th><th></th></tr></thead>
+            <tbody id="itens">
+                <tr>
+                    <td><input name="referencia[]" required></td>
+                    <td><input name="descricao[]" required></td>
+                    <td><input type="number" min="0" name="quantidade_entregue[]" required></td>
+                    <td><button type="button" class="btn-add" onclick="remover(this)">×</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn-add" onclick="adicionar()">+ Adicionar peça</button>
+        <div class="acoes"><button class="btn" type="submit">Registrar entrega</button></div>
+    </form>
+</main>
+<script>
+function adicionar(){
+ const tr=document.createElement('tr');
+ tr.innerHTML='<td><input name="referencia[]" required></td><td><input name="descricao[]" required></td><td><input type="number" min="0" name="quantidade_entregue[]" required></td><td><button type="button" class="btn-add" onclick="remover(this)">×</button></td>';
+ document.getElementById('itens').appendChild(tr);
+}
+function remover(btn){
+ const linhas=document.querySelectorAll('#itens tr');
+ if(linhas.length>1) btn.closest('tr').remove();
+}
+</script>
+</body>
+</html>

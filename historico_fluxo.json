@@ -1,0 +1,660 @@
+{
+  "8": [
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 10:53",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 11:40",
+      "detalhe": ""
+    }
+  ],
+  "7": [
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 10:53",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 11:44",
+      "detalhe": ""
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 11:44",
+      "detalhe": ""
+    }
+  ],
+  "9": [
+    {
+      "etapa": "Solicitação registrada",
+      "usuario": "Administrador",
+      "data": "2026-08-21",
+      "detalhe": ""
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 11:40",
+      "detalhe": "NF-e nº 133"
+    },
+    {
+      "etapa": "Conferência aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 11:44",
+      "detalhe": ""
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 11:44",
+      "detalhe": ""
+    }
+  ],
+  "10": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 12:32",
+      "detalhe": "Entrega criada pelo fornecedor"
+    }
+  ],
+  "11": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 12:41",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:26",
+      "detalhe": "Conferência do operador concluída. Correções: Referência: AZ1 → AZ12 | Descrição: CARENAGEM LATERAL ESQUERDA BRANCA → CARENAGEM LATERAL ESQUERDA PRETA"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:28",
+      "detalhe": "NF-e nº 1"
+    },
+    {
+      "etapa": "Conferência aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:40",
+      "detalhe": ""
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:40",
+      "detalhe": ""
+    },
+    {
+      "etapa": "NF-e removida",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:41",
+      "detalhe": "NF-e removida pelo administrador."
+    }
+  ],
+  "12": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 12:47",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:06",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:28",
+      "detalhe": "NF-e nº 1"
+    },
+    {
+      "etapa": "Conferência aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:40",
+      "detalhe": ""
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:40",
+      "detalhe": ""
+    },
+    {
+      "etapa": "NF-e removida",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:41",
+      "detalhe": "NF-e removida pelo administrador."
+    }
+  ],
+  "13": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:08",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:10",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:28",
+      "detalhe": "NF-e nº 1"
+    },
+    {
+      "etapa": "Conferência aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:29",
+      "detalhe": ""
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:40",
+      "detalhe": ""
+    },
+    {
+      "etapa": "NF-e removida",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:41",
+      "detalhe": "NF-e removida pelo administrador."
+    }
+  ],
+  "14": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:37",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:37",
+      "detalhe": "Conferência do operador concluída. Correções: Referência: 123 → 1234 | Descrição: CARENAGEM LATERAL ESQUERDA BRANCA → CARENAGEM LATERAL ESQUERDA PRETA"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:40",
+      "detalhe": "NF-e nº 1"
+    },
+    {
+      "etapa": "Conferência aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:41",
+      "detalhe": ""
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:41",
+      "detalhe": ""
+    },
+    {
+      "etapa": "NF-e removida",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:41",
+      "detalhe": "NF-e removida pelo administrador."
+    }
+  ],
+  "15": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:43",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:43",
+      "detalhe": "Conferência do operador concluída. Correções: Referência: 123 → 1234 | Descrição: CARENAGEM LATERAL ESQUERDA BRANCA → CARENAGEM LATERAL ESQUERDA BRANCAa"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 13:44",
+      "detalhe": "NF-e nº 1"
+    }
+  ],
+  "16": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:00",
+      "detalhe": "Entrega criada pelo fornecedor"
+    }
+  ],
+  "17": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:04",
+      "detalhe": "Entrega criada pelo fornecedor"
+    }
+  ],
+  "18": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:08",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:08",
+      "detalhe": "Conferência do operador concluída. Correções: 123 / aa → 1233 / aaa"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:09",
+      "detalhe": "NF-e nº 123"
+    }
+  ],
+  "19": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:14",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:14",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:14",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:14",
+      "detalhe": "Conferente realizou somente a conferência da NF-e."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:15",
+      "detalhe": ""
+    }
+  ],
+  "20": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:27",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:28",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: 123 → 1234 | Desc.: CARENAGEM LATERAL → CARENAGEM FRONTAL"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:28",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:33",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:33",
+      "detalhe": ""
+    }
+  ],
+  "21": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:39",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:39",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:39",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:40",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:40",
+      "detalhe": ""
+    }
+  ],
+  "22": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:41",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:41",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: 123 → 1234 | Desc.: CARENAGEM LATERAL → CARENAGEM FRONTAL"
+    }
+  ],
+  "23": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:42",
+      "detalhe": "Entrega criada pelo fornecedor"
+    }
+  ],
+  "24": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:46",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:46",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: 123 → 1234 | Desc.: CARENAGEM LATERAL → CARENAGEM FRONTAL"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:47",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:47",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:47",
+      "detalhe": ""
+    }
+  ],
+  "25": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:54",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:55",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 14:55",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:01",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:02",
+      "detalhe": ""
+    }
+  ],
+  "26": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:16",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:17",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: 123 → 1234 | Desc.: CARENAGEM LATERAL → CARENAGEM FRONTAL"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:17",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:17",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:17",
+      "detalhe": ""
+    }
+  ],
+  "27": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Enoque Muniz",
+      "data": "21/08/2026 15:24",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Thiago Targino",
+      "data": "21/08/2026 15:25",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 15:26",
+      "detalhe": "NF-e nº 47124"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:30",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:30",
+      "detalhe": ""
+    }
+  ],
+  "28": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:34",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:34",
+      "detalhe": "Conferência do operador concluída."
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:34",
+      "detalhe": "NF-e nº 123"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:34",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 16:34",
+      "detalhe": ""
+    }
+  ],
+  "29": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Enoque Muniz",
+      "data": "21/08/2026 17:10",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Thiago Targino",
+      "data": "21/08/2026 17:11",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: 123 → 1234 | Desc.: CARENAGEM LATERAL ESQUERDA BRANCA → CARENAGEM LATERAL ESQUERDA BRANCA || Ref.: 321 → 3210 | Desc.: CARENAGEM LATERAL ESQUERDA PRETA → CARENAGEM LATERAL ESQUERDA PRETA"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:12",
+      "detalhe": "NF-e nº 123456"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Thiago Assis",
+      "data": "21/08/2026 17:15",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:15",
+      "detalhe": ""
+    }
+  ],
+  "30": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:17",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:18",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: 123 → 1234 | Desc.: CARENAGEM LATERAL → CARENAGEM FRONTAL"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:18",
+      "detalhe": "NF-e nº 1234"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:19",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "21/08/2026 17:19",
+      "detalhe": ""
+    }
+  ],
+  "31": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "24/08/2026 07:53",
+      "detalhe": "Entrega criada pelo fornecedor"
+    },
+    {
+      "etapa": "Conferência do operador",
+      "usuario": "Administrador",
+      "data": "24/08/2026 07:54",
+      "detalhe": "Conferência do operador concluída. Alterações informadas ao administrador: Ref.: AZ1 → AZ125 | Desc.: CARENAGEM LATERAL → CARENAGEM FRONTAL"
+    },
+    {
+      "etapa": "NF-e anexada",
+      "usuario": "Administrador",
+      "data": "24/08/2026 07:54",
+      "detalhe": "NF-e nº 12345"
+    },
+    {
+      "etapa": "Conferência da NF-e aprovada",
+      "usuario": "Administrador",
+      "data": "24/08/2026 07:55",
+      "detalhe": "Conferente comparou a NF-e com o recebimento e aprovou. Nenhum dado da conferência física foi alterado."
+    },
+    {
+      "etapa": "Entrada realizada",
+      "usuario": "Administrador",
+      "data": "24/08/2026 07:55",
+      "detalhe": ""
+    }
+  ],
+  "32": [
+    {
+      "etapa": "Nova entrega registrada",
+      "usuario": "Administrador",
+      "data": "09/09/2026 08:57",
+      "detalhe": "Entrega criada pelo fornecedor"
+    }
+  ]
+}
