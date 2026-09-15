@@ -15,18 +15,20 @@ A aplicação permite registrar entregas, realizar conferências, identificar di
 - Cadastro de novas entregas
 - Registro de recebimentos
 - Cadastro e consulta de peças
-- Preenchimento automático de descrições através da base de referências
+- Consulta de referências através da base de dados
+- Preenchimento automático da descrição das peças
 - Conferência de quantidades
 - Identificação de divergências
 - Registro de avarias
 - Controle da adequação da embalagem
 - Anexação de NF-e
-- Visualização da NF-e diretamente no sistema
+- Visualização da NF-e no sistema
 - Conferência da NF-e
 - Aprovação ou rejeição da NF-e
-- Controle das entradas pendentes
+- Controle de entradas pendentes
 - Histórico das movimentações
 - Gerenciamento de usuários
+- Controle de cargos e permissões
 - Alteração e redefinição de senhas
 - Integração com banco de dados SQLite
 - Integração com arquivo Excel para consulta de referências
