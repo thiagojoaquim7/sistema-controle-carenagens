@@ -58,40 +58,38 @@ O processo operacional segue as seguintes etapas:
 
 ### Tela de Login
 
-![Tela de Login](./capturas%20de%20tela/01-login.png)
+![Tela de Login](./screenshots/01-login.png)
 
 ### Painel Principal
 
-![Painel Principal](./capturas%20de%20tela/02-painel.png)
-
+![Painel Principal](./screenshots/02-dashboard.png)
 ### Nova Entrega
 
-![Nova Entrega](./capturas%20de%20tela/03-nova-entrega.png)
+![Nova Entrega](./screenshots/03-nova-entrega.png)
 
 ### Receber Entrega
 
-![Receber Entrega](./capturas%20de%20tela/04-receber-entrega.png)
+![Receber Entrega](./screenshots/04-receber-entrega.png)
 
 ### Entradas Pendentes
 
-![Entradas Pendentes](./capturas%20de%20tela/05-entradas-pendentes.png)
+![Entradas Pendentes](./screenshots/05-entradas-pendentes.png)
 
 ### Conferência da NF-e
 
-![Conferência da NF-e](./capturas%20de%20tela/06-conferencia-nfe.png)
+![Conferência da NF-e](./screenshots/06-conferencia-nfe.png)
 
 ### Entrada do Recebimento
 
-![Entrada do Recebimento](./capturas%20de%20tela/07-entrada-recebimento.png)
+![Entrada do Recebimento](./screenshots/07-entrada-recebimento.png)
 
 ### Notas Fiscais
 
-![Notas Fiscais](./capturas%20de%20tela/08-notas-fiscais.png)
+![Notas Fiscais](./screenshots/08-notas-fiscais.png)
 
 ### Gerenciamento
 
-![Gerenciamento](./capturas%20de%20tela/09-gerenciamento.png)
-
+![Gerenciamento](./screenshots/09-gerenciamento.png)
 ## Linguagens e tecnologias utilizadas
 
 ### Linguagens
