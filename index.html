@@ -1,0 +1,3227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Carenagens</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: #fff;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            height: 80px;
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            border-bottom: 1px solid #eee;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #d9271c;
+            color: white;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .logo-subtitle {
+            margin-top: 3px;
+            font-size: 11px;
+            color: #8a93a1;
+        }
+
+        .menu {
+            padding: 18px 12px;
+        }
+
+        .menu-titulo {
+            padding: 0 13px;
+            margin: 8px 0;
+            font-size: 10px;
+            font-weight: bold;
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+
+        .menu-item {
+            height: 45px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 14px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            color: #4b5563;
+            font-size: 14px;
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        .menu-item:hover {
+            background: #fbe9e7;
+            color: #d9271c;
+        }
+
+        .menu-item.ativo {
+            background: #fae8e6;
+            color: #d9271c;
+            font-weight: 600;
+        }
+
+        .icone {
+            width: 21px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .seta {
+            margin-left: auto;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 18px 22px;
+            border-top: 1px solid #eee;
+            color: #9ca3af;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .main {
+            margin-left: 260px;
+            width: calc(100% - 260px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 80px;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 32px;
+        }
+
+        .usuario {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d9271c;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .usuario-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .usuario-info strong {
+            font-size: 13px;
+        }
+
+        .usuario-info span {
+            font-size: 11px;
+            color: #8a93a1;
+        }
+
+        .conteudo {
+            padding: 32px;
+        }
+
+        .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .cabecalho h1 {
+            margin: 0;
+            font-size: 26px;
+            color: #111827;
+        }
+
+        .cabecalho p {
+            margin: 7px 0 0;
+            color: #7b8494;
+            font-size: 14px;
+        }
+
+        .botao-principal {
+            border: 0;
+            background: #d9271c;
+            color: white;
+            border-radius: 7px;
+            padding: 11px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .botao-principal:hover {
+            background: #bb2118;
+        }
+
+        .botao-secundario {
+            border: 1px solid #dfe3e8;
+            background: white;
+            color: #374151;
+            border-radius: 7px;
+            padding: 11px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .botao-secundario:hover {
+            background: #f8f9fb;
+        }
+
+        .botao-abrir {
+            display: inline-block;
+            background: #d9271c;
+            color: white;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .botao-abrir:hover {
+            background: #bb2118;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-icone {
+            width: 44px;
+            height: 44px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .card-vermelho {
+            background: #fae8e6;
+            color: #d9271c;
+        }
+
+        .card-azul {
+            background: #eaf1ff;
+            color: #3769c8;
+        }
+
+        .card-verde {
+            background: #e8f7ed;
+            color: #21834a;
+        }
+
+        .card-cinza {
+            background: #eef1f4;
+            color: #5f6978;
+        }
+
+        .card span {
+            display: block;
+            color: #7b8494;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .card strong {
+            display: block;
+            font-size: 25px;
+            color: #172033;
+        }
+
+        .painel {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .painel-header {
+            padding: 20px;
+            border-bottom: 1px solid #edf0f3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .painel-header h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .painel-header p {
+            margin: 6px 0 0;
+            color: #8a93a1;
+            font-size: 12px;
+        }
+
+        .formulario {
+            padding: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .campo label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            border: 1px solid #dfe3e8;
+            border-radius: 7px;
+            padding: 11px 12px;
+            font-size: 13px;
+            color: #1f2937;
+            background: #fff;
+            outline: none;
+        }
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+            border-color: #d9271c;
+            box-shadow: 0 0 0 2px rgba(217,39,28,.08);
+        }
+
+        .campo textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .campo-full {
+            grid-column: 1 / -1;
+        }
+
+        .secao-form {
+            margin-top: 28px;
+            padding-top: 22px;
+            border-top: 1px solid #edf0f3;
+        }
+
+        .secao-titulo {
+            margin-bottom: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #172033;
+        }
+
+        .tabela-container {
+            overflow-x: auto;
+        }
+
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabela th {
+            background: #f8f9fb;
+            color: #6b7280;
+            text-align: left;
+            font-size: 11px;
+            padding: 13px 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tabela td {
+            padding: 14px 16px;
+            font-size: 12px;
+            border-bottom: 1px solid #eef0f3;
+        }
+
+        .tabela-itens {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabela-itens th {
+            background: #f8f9fb;
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tabela-itens td {
+            padding: 9px;
+            border-bottom: 1px solid #eef0f3;
+        }
+
+        .tabela-itens input {
+            width: 100%;
+            border: 1px solid #dfe3e8;
+            border-radius: 6px;
+            padding: 9px;
+            outline: none;
+            font-size: 12px;
+        }
+        .tabela-itens select {
+            width: 100%;
+            border: 1px solid #dfe3e8;
+            border-radius: 6px;
+            padding: 9px;
+            outline: none;
+            font-size: 12px;
+            background: #fff;
+        }
+        .descricao-carenagem[readonly] { background: #f3f4f6; }
+
+        .botao-remover {
+            border: 0;
+            background: #fae8e6;
+            color: #d9271c;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .adicionar-item {
+            margin-top: 12px;
+            border: 1px dashed #d9271c;
+            background: #fff8f7;
+            color: #d9271c;
+            padding: 9px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .status-amarelo {
+            background: #fff5d9;
+            color: #9a6700;
+        }
+
+        .status-azul {
+            background: #e8f0ff;
+            color: #2457a6;
+        }
+
+        .status-verde {
+            background: #e8f7ed;
+            color: #21834a;
+        }
+
+        .status-vermelho {
+            background: #fae8e6;
+            color: #d9271c;
+        }
+
+        .vazio {
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 7px;
+            color: #7b8494;
+        }
+
+        .vazio-icone {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #e8f7ed;
+            color: #21834a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .vazio strong {
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .vazio span {
+            font-size: 12px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .info-box {
+            background: #f8f9fb;
+            border: 1px solid #edf0f3;
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .info-box span {
+            display: block;
+            color: #8a93a1;
+            font-size: 10px;
+            margin-bottom: 6px;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 13px;
+            color: #172033;
+        }
+
+        .upload-area {
+            border: 1px dashed #cfd5dc;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fafbfc;
+        }
+
+        .upload-area input[type="file"] {
+            width: 100%;
+            font-size: 12px;
+        }
+
+        .upload-info {
+            margin-top: 7px;
+            font-size: 11px;
+            color: #8a93a1;
+        }
+
+        .form-acoes {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #edf0f3;
+        }
+
+        .mensagem {
+            margin-bottom: 20px;
+            padding: 13px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .mensagem-sucesso {
+            background: #e8f7ed;
+            color: #21834a;
+            border: 1px solid #c9ead5;
+        }
+
+        .mensagem-erro {
+            background: #fae8e6;
+            color: #d9271c;
+            border: 1px solid #f0c9c5;
+        }
+
+        .usuario-acoes {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .acoes-fluxo {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .botao-aprovar {
+            border: 1px solid #c9ead5;
+            background: #e8f7ed;
+            color: #21834a;
+            border-radius: 6px;
+            padding: 7px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .botao-rejeitar {
+            border: 1px solid #f0c9c5;
+            background: #fff8f7;
+            color: #d9271c;
+            border-radius: 6px;
+            padding: 7px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .nf-mini {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .motivo-rejeicao {
+            margin-top: 8px;
+            padding: 9px 11px;
+            background: #fff8f7;
+            border: 1px solid #f0c9c5;
+            border-radius: 7px;
+            color: #8f2019;
+            font-size: 11px;
+        }
+
+        .botao-pequeno {
+            border: 1px solid #dfe3e8;
+            background: white;
+            color: #374151;
+            border-radius: 6px;
+            padding: 7px 9px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .botao-pequeno:hover {
+            background: #f8f9fb;
+        }
+
+        .botao-perigo {
+            border-color: #f0c9c5;
+            color: #d9271c;
+            background: #fff8f7;
+        }
+
+        .botao-reset {
+            border-color: #ead7a3;
+            color: #8a6500;
+            background: #fffaf0;
+        }
+
+        @media (max-width: 1100px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 220px;
+            }
+
+            .main {
+                margin-left: 220px;
+                width: calc(100% - 220px);
+            }
+
+            .conteudo {
+                padding: 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+        .dashboard-filtro {
+            background:#fff;
+            border:1px solid #e5e7eb;
+            border-radius:10px;
+            padding:16px 18px;
+            margin-bottom:20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:18px;
+            flex-wrap:wrap;
+        }
+        .dashboard-filtro-info strong { display:block; font-size:13px; color:#172033; }
+        .dashboard-filtro-info span { display:block; margin-top:4px; font-size:11px; color:#8a93a1; }
+        .periodo-datas {
+            display:flex;
+            gap:10px;
+            align-items:flex-end;
+        }
+        .campo-data-dashboard {
+            display:flex;
+            flex-direction:column;
+            gap:5px;
+        }
+        .campo-data-dashboard label {
+            font-size:10px;
+            font-weight:700;
+            color:#667085;
+        }
+        .campo-data-dashboard input {
+            width:155px;
+            height:42px;
+            padding:0 11px;
+            border:1px solid #cfd5dc;
+            border-radius:8px;
+            background:#fff;
+            color:#344054;
+            font-size:12px;
+            outline:none;
+        }
+        .campo-data-dashboard input:focus { border-color:#98a2b3; box-shadow:0 0 0 2px rgba(152,162,179,.12); }
+        .dashboard-acoes { display:flex; gap:10px; align-items:flex-end; }
+        .dashboard-cards { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; margin:20px 0; }
+        .dashboard-metrica { background:#fff; border:1px solid #e1e5ea; border-radius:10px; min-height:104px; padding:20px; display:flex; align-items:center; gap:16px; box-sizing:border-box; }
+        .dashboard-metrica:first-child { border-left:4px solid #d9271c; }
+        .dashboard-metrica:first-child .dashboard-metrica-icone { background:#fae8e6; color:#d9271c; }
+        .dashboard-metrica:last-child { border-left:4px solid #2563eb; }
+        .dashboard-metrica:last-child .dashboard-metrica-icone { background:#eaf1ff; color:#2563eb; }
+        .dashboard-metrica-icone { width:44px; height:44px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:20px; flex:none; }
+        .dashboard-metrica-label { display:block; font-size:12px; color:#667085; margin-bottom:5px; }
+        .dashboard-metrica-valor { display:block; font-size:26px; line-height:1; font-weight:800; color:#172033; }
+        .dashboard-tabela th, .dashboard-tabela td { white-space:nowrap; }
+        .qtd-principal { font-size:15px; font-weight:800; color:#172033; }
+        .qtd-secundaria { display:block; margin-top:3px; font-size:10px; color:#8a93a1; }
+        .dashboard-badge { display:inline-flex; padding:5px 8px; border-radius:12px; background:#f1e7ff; color:#6d28d9; font-size:10px; font-weight:700; }
+        @media(max-width:700px){ .dashboard-cards{grid-template-columns:1fr;} .periodo-datas{width:100%; flex-direction:column; align-items:stretch;} .campo-data-dashboard input{width:100%;} .dashboard-filtro{align-items:stretch;} .dashboard-acoes{width:100%; flex-direction:column; align-items:stretch;} .dashboard-acoes .botao-principal{width:100%;} }
+
+
+        /* =====================================================
+           ACOMPANHAMENTO EM TEMPO REAL
+        ===================================================== */
+        .acompanhamento-cabecalho { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; }
+        .status-tempo-real { font-size:13px; font-weight:600; color:#16834b; padding-top:8px; white-space:nowrap; }
+        .card-roxo { background:#f1e7ff; color:#6d28d9; }
+        .acompanhamento-painel { margin-top:22px; }
+        .total-registros { font-size:12px; color:#667085; }
+        .filtros-acompanhamento { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 20px; border-top:1px solid #eef0f3; border-bottom:1px solid #eef0f3; }
+        .filtros-acompanhamento input { width:420px; max-width:100%; padding:10px 12px; border:1px solid #d9dde3; border-radius:7px; outline:none; }
+        .filtros-acompanhamento input:focus { border-color:#e32620; }
+        .filtros-status { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; }
+        .filtro-status { background:#fff; border:1px solid #d9dde3; border-radius:7px; padding:8px 12px; font-size:12px; cursor:pointer; color:#344054; }
+        .filtro-status:hover, .filtro-status.ativo { border-color:#e32620; color:#e32620; }
+        .tabela-acompanhamento-container { overflow-x:auto; }
+        .tabela-acompanhamento { width:100%; border-collapse:collapse; min-width:1050px; }
+        .tabela-acompanhamento th { background:#fafbfc; color:#667085; font-size:11px; text-align:left; padding:12px 10px; border-bottom:1px solid #e5e7eb; white-space:nowrap; }
+        .tabela-acompanhamento td { padding:12px 10px; border-bottom:1px solid #eef0f3; font-size:12px; color:#344054; vertical-align:middle; }
+        .tabela-acompanhamento tbody tr.linha-pedido { cursor:pointer; }
+        .tabela-acompanhamento tbody tr.linha-pedido:hover { background:#fff8f7; }
+        .pedido-numero { display:block; font-weight:700; color:#101828; }
+        .pedido-sub { display:block; font-size:10px; color:#98a2b3; margin-top:2px; }
+        .botao-pequeno { display:inline-block; background:#e32620; color:#fff; padding:7px 10px; border-radius:6px; font-size:11px; font-weight:600; }
+        .status-pedido { display:inline-flex; align-items:center; gap:5px; padding:5px 9px; border-radius:999px; font-size:11px; font-weight:600; white-space:nowrap; background:#f2f4f7; color:#475467; }
+        .status-nfe { background:#fff3cd; color:#9a6700; }
+        .status-conferencia { background:#e8f0ff; color:#175cd3; }
+        .status-recebimento { background:#fff3cd; color:#9a6700; }
+        .status-entrada { background:#f0e8ff; color:#6941c6; }
+        .status-finalizado { background:#e7f6ec; color:#16834b; }
+        .carregando-tabela { text-align:center !important; padding:45px !important; color:#667085 !important; }
+        .detalhe-resumo { margin-bottom:20px; }
+        .detalhe-resumo-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; padding:18px; }
+        .detalhe-resumo-grid > div { background:#f8f9fb; border:1px solid #eef0f3; border-radius:8px; padding:13px; display:flex; flex-direction:column; gap:5px; }
+        .detalhe-resumo-grid span:first-child { font-size:10px; color:#667085; text-transform:uppercase; }
+        .detalhe-resumo-grid strong { font-size:13px; color:#101828; }
+        .detalhe-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:20px; }
+        .linha-tempo { padding:18px 22px 24px; }
+        .linha-tempo-item { display:flex; gap:13px; position:relative; padding-bottom:22px; }
+        .linha-tempo-item:not(:last-child)::after { content:""; position:absolute; left:9px; top:21px; bottom:0; width:1px; background:#d9dde3; }
+        .linha-tempo-ponto { width:20px; height:20px; border-radius:50%; background:#eef1f5; color:#98a2b3; display:flex; align-items:center; justify-content:center; font-size:11px; flex:none; z-index:1; }
+        .linha-tempo-item.concluida .linha-tempo-ponto { background:#e7f6ec; color:#16834b; }
+        .linha-tempo-conteudo { display:flex; flex-direction:column; gap:3px; }
+        .linha-tempo-conteudo strong { font-size:13px; color:#101828; }
+        .linha-tempo-conteudo span { font-size:12px; color:#475467; }
+        .linha-tempo-conteudo small { font-size:11px; color:#98a2b3; }
+        .motivo-rejeicao-detalhe { margin:0 22px 20px; padding:12px; border-radius:7px; background:#fff4f4; border:1px solid #ffd2d2; color:#b42318; display:flex; gap:8px; flex-direction:column; }
+        @media (max-width:1000px) { .filtros-acompanhamento { flex-direction:column; align-items:stretch; } .filtros-status { justify-content:flex-start; } .detalhe-resumo-grid { grid-template-columns:repeat(2,1fr); } .detalhe-grid { grid-template-columns:1fr; } }
+        @media (max-width:600px) { .detalhe-resumo-grid { grid-template-columns:1fr; } .acompanhamento-cabecalho { flex-direction:column; } }
+
+        /* Conferência: comparação lado a lado da NF-e com o recebimento */
+        .conferencia-comparacao {
+            display:grid;
+            grid-template-columns:minmax(360px, 0.9fr) minmax(500px, 1.1fr);
+            gap:20px;
+            align-items:start;
+        }
+
+        .conferencia-nfe {
+            background:#f8f9fb;
+            padding:12px;
+        }
+
+        .conferencia-nfe iframe {
+            display:block;
+            width:100%;
+            height:650px;
+            border:1px solid #dfe3e8;
+            border-radius:8px;
+            background:#fff;
+        }
+
+        .conferencia-quantidade {
+            text-align:center;
+            font-weight:700;
+        }
+
+        @media (max-width:900px) {
+            .conferencia-comparacao {
+                grid-template-columns:1fr;
+            }
+            .conferencia-nfe iframe {
+                height:600px;
+            }
+        }
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- ==================================================
+         MENU
+    ================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- CLICAR NO AVELLOZ VOLTA PARA O MENU -->
+        <a href="{{ url_for('inicio') }}" class="logo" title="Voltar ao menu">
+
+            <div class="logo-icon">
+                A
+            </div>
+
+            <div>
+
+                <div class="logo-title">
+                    AVELLOZ
+                </div>
+
+                <div class="logo-subtitle">
+                    Controle de Carenagens
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <nav class="menu">
+
+            <!-- INÍCIO - SOMENTE QUEM TEM PERMISSÃO -->
+            {% if "inicio" in permissoes %}
+
+            <div class="menu-titulo">
+                Principal
+            </div>
+
+            <a
+                href="{{ url_for('inicio') }}"
+                class="menu-item {% if pagina == 'inicio' %}ativo{% endif %}"
+            >
+                <span class="icone">⌂</span>
+                <span>Início</span>
+            </a>
+
+            {% endif %}
+
+            <!-- DASHBOARD -->
+            {% if "dashboard" in permissoes %}
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="menu-item {% if pagina == 'dashboard' %}ativo{% endif %}"
+            >
+                <span class="icone">▦</span>
+                <span>Dashboard</span>
+            </a>
+            {% endif %}
+
+
+            <!-- NOVA ENTREGA - FORNECEDOR -->
+            {% if "nova_entrega" in permissoes %}
+
+            <div class="menu-titulo">
+                Operação
+            </div>
+
+            <a
+                href="{{ url_for('nova_entrega') }}"
+                class="menu-item {% if pagina == 'nova-entrega' %}ativo{% endif %}"
+            >
+                <span class="icone">+</span>
+                <span>Nova Entrega</span>
+            </a>
+
+            {% endif %}
+
+
+            <!-- NOVO RECEBIMENTO -->
+            {% if "recebimentos" in permissoes %}
+
+            {% if "inicio" not in permissoes %}
+            <div class="menu-titulo">
+                Principal
+            </div>
+            {% endif %}
+
+            <a
+                href="{{ url_for('recebimentos') }}"
+                class="menu-item {% if pagina == 'recebimentos' %}ativo{% endif %}"
+            >
+                <span class="icone">+</span>
+                <span>Receber Entrega</span>
+            </a>
+
+            {% endif %}
+
+
+            <!-- ENTRADAS PENDENTES -->
+            {% if "pendentes" in permissoes %}
+
+            <a
+                href="{{ url_for('pendentes') }}"
+                class="menu-item {% if pagina == 'pendentes' %}ativo{% endif %}"
+            >
+                <span class="icone">□</span>
+                <span>Entradas Pendentes</span>
+                {% if alteracoes_pendentes > 0 %}
+                    <span style="margin-left:auto; min-width:18px; height:18px; padding:0 5px; display:inline-flex; align-items:center; justify-content:center; border-radius:10px; background:#d9271c; color:#fff; font-size:10px; font-weight:700;">{{ alteracoes_pendentes }}</span>
+                {% endif %}
+            </a>
+
+            {% endif %}
+
+
+            <!-- CONFERÊNCIA -->
+            {% if "conferencia" in permissoes %}
+
+            <a
+                href="{{ url_for('conferencia') }}"
+                class="menu-item {% if pagina == 'conferencia' %}ativo{% endif %}"
+            >
+                <span class="icone">✓</span>
+                <span>Conferência</span>
+            </a>
+
+            {% endif %}
+
+
+            <!-- DOCUMENTOS -->
+            {% if "notas_fiscais" in permissoes or "historico" in permissoes %}
+
+            <div class="menu-titulo">
+                Documentos
+            </div>
+
+            {% endif %}
+
+
+            <!-- NOTAS FISCAIS -->
+            {% if "notas_fiscais" in permissoes %}
+
+            <a
+                href="{{ url_for('notas_fiscais') }}"
+                class="menu-item {% if pagina == 'notas-fiscais' %}ativo{% endif %}"
+            >
+                <span class="icone">▱</span>
+                <span>Notas Fiscais</span>
+            </a>
+
+            {% endif %}
+
+
+            <!-- HISTÓRICO -->
+            {% if "historico" in permissoes %}
+
+            <a
+                href="{{ url_for('historico') }}"
+                class="menu-item {% if pagina == 'historico' %}ativo{% endif %}"
+            >
+                <span class="icone">◷</span>
+                <span>Histórico</span>
+            </a>
+
+            {% endif %}
+
+
+            <!-- GERENCIAMENTO -->
+            {% if "gerenciamento" in permissoes %}
+
+            <div class="menu-titulo">
+                Sistema
+            </div>
+
+            <a
+                href="{{ url_for('gerenciamento') }}"
+                class="menu-item {% if pagina == 'gerenciamento' %}ativo{% endif %}"
+            >
+                <span class="icone">⚙</span>
+                <span>Gerenciamento</span>
+                <span class="seta">›</span>
+            </a>
+
+            {% endif %}
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+            Sistema de Carenagens
+            <br>
+            <span>Versão 1.0</span>
+        </div>
+
+    </aside>
+
+
+    <!-- ==================================================
+         ÁREA PRINCIPAL
+    ================================================== -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            {% if usuario_logado %}
+
+            <div class="usuario">
+
+                <div class="avatar">
+                    {{ usuario_logado["nome"][0]|upper }}
+                </div>
+
+                <div class="usuario-info">
+
+                    <strong>
+                        {{ usuario_logado["nome"] }}
+                    </strong>
+
+                    <span>
+                        {{ perfis.get(usuario_logado["perfil"], usuario_logado["perfil"]) }}
+                    </span>
+
+                </div>
+
+                <!-- BOTÃO SAIR -->
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="botao-secundario"
+                    style="margin-left:12px;padding:9px 13px;"
+                >
+                    Sair
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </header>
+
+
+        <section class="conteudo">
+
+
+            <!-- ==================================================
+                 MENSAGENS
+            ================================================== -->
+
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+
+                {% if mensagens %}
+
+                    {% for categoria, mensagem in mensagens %}
+
+                        <div
+                            class="mensagem {% if categoria == 'sucesso' %}mensagem-sucesso{% else %}mensagem-erro{% endif %}"
+                        >
+                            {{ mensagem }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- ==================================================
+                 INÍCIO
+            ================================================== -->
+
+            {% if pagina == "inicio" %}
+
+                <div class="cabecalho acompanhamento-cabecalho">
+                    <div>
+                        <h1>Início</h1>
+                        <p>Acompanhamento geral dos recebimentos e do fluxo de carenagens.</p>
+                    </div>
+                    <div id="statusTempoReal" class="status-tempo-real">● Conectando...</div>
+                </div>
+
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-icone card-vermelho">□</div>
+                        <div><span>Aguardando NF-e</span><strong id="cardAguardandoNfe">0</strong></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icone card-azul">✓</div>
+                        <div><span>Aguardando conferência</span><strong id="cardAguardandoConferencia">0</strong></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icone card-roxo">↳</div>
+                        <div><span>Aguardando entrada</span><strong id="cardAguardandoEntrada">0</strong></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icone card-verde">✓</div>
+                        <div><span>Finalizados</span><strong id="cardFinalizados">0</strong></div>
+                    </div>
+                </div>
+
+                <div class="painel acompanhamento-painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Pedidos / Recebimentos</h2>
+                            <p>Clique em um pedido para acompanhar todas as etapas e os responsáveis.</p>
+                        </div>
+                        <span id="totalPedidos" class="total-registros">0 registro(s)</span>
+                    </div>
+
+                    <div class="filtros-acompanhamento">
+                        <input id="buscaPedidos" type="text" placeholder="Buscar por recibo, responsável ou NF-e..." oninput="filtrarPedidosTempoReal()">
+                        <div class="filtros-status">
+                            <button type="button" class="filtro-status ativo" data-filtro="Todos" onclick="selecionarFiltro(this)">Todos</button>
+                            <button type="button" class="filtro-status" data-filtro="Aguardando recebimento" onclick="selecionarFiltro(this)">Aguardando recebimento</button>
+                            <button type="button" class="filtro-status" data-filtro="Aguardando NF-e" onclick="selecionarFiltro(this)">Aguardando NF-e</button>
+                            <button type="button" class="filtro-status" data-filtro="Aguardando conferência" onclick="selecionarFiltro(this)">Aguardando conferência</button>
+                            <button type="button" class="filtro-status" data-filtro="Aguardando entrada" onclick="selecionarFiltro(this)">Aguardando entrada</button>
+                            <button type="button" class="filtro-status" data-filtro="Finalizado" onclick="selecionarFiltro(this)">Finalizados</button>
+                        </div>
+                    </div>
+
+                    <div class="tabela-acompanhamento-container">
+                        <table class="tabela-acompanhamento" id="tabelaPedidos">
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Data</th>
+                                    <th>Responsável</th>
+                                    <th>NF-e</th>
+                                    <th>Status</th>
+                                    <th>Última etapa</th>
+                                    <th>Responsável etapa</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="8" class="carregando-tabela">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="vazioPedidos" class="vazio" style="display:none;">
+                        <div class="vazio-icone">✓</div>
+                        <strong>Nenhum recebimento encontrado</strong>
+                        <span>Os registros aparecerão aqui automaticamente.</span>
+                    </div>
+                </div>
+
+
+            {% elif pagina == "dashboard" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Visualize as carenagens entregues e conferidas no período selecionado.</p>
+                    </div>
+                </div>
+
+                <form method="GET" action="{{ url_for('dashboard') }}" class="dashboard-filtro">
+                    <div class="dashboard-filtro-info">
+                        <strong>Período</strong>
+                        <span>Considera a data em que a entrega foi registrada pelo fornecedor.</span>
+                    </div>
+                    <div class="dashboard-acoes">
+                        <div class="periodo-datas">
+                            <div class="campo-data-dashboard">
+                                <label for="dashboard-inicio">Data inicial</label>
+                                <input id="dashboard-inicio" type="date" name="inicio" value="{{ dashboard_inicio }}" aria-label="Data inicial">
+                            </div>
+                            <div class="campo-data-dashboard">
+                                <label for="dashboard-fim">Data final</label>
+                                <input id="dashboard-fim" type="date" name="fim" value="{{ dashboard_fim }}" aria-label="Data final">
+                            </div>
+                        </div>
+                        <button type="submit" class="botao-principal">Aplicar</button>
+                    </div>
+                </form>
+
+                <div class="dashboard-cards">
+                    <div class="dashboard-metrica">
+                        <div class="dashboard-metrica-icone">▥</div>
+                        <div>
+                            <span class="dashboard-metrica-label">Carenagens pintadas no período</span>
+                            <span class="dashboard-metrica-valor">{{ dashboard_resumo['total_conferidas'] or 0 }}</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-metrica">
+                        <div class="dashboard-metrica-icone">▣</div>
+                        <div>
+                            <span class="dashboard-metrica-label">Recibos gerados</span>
+                            <span class="dashboard-metrica-valor">{{ dashboard_entregas|length }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Carenagens pintadas no período</h2>
+                            <p>Total de carenagens conferidas, agrupadas por referência.</p>
+                        </div>
+                        <span class="total-registros">{{ dashboard_carenagens|length }} referência(s)</span>
+                    </div>
+                    {% if dashboard_carenagens %}
+                    <div class="tabela-container">
+                        <table class="tabela dashboard-tabela">
+                            <thead><tr><th>Referência</th><th>Descrição</th><th>Quantidade conferida</th></tr></thead>
+                            <tbody>
+                            {% for item in dashboard_carenagens %}
+                                <tr>
+                                    <td><strong>{{ item['referencia'] }}</strong></td>
+                                    <td>{{ item['descricao'] }}</td>
+                                    <td><span class="qtd-principal">{{ item['quantidade_conferida'] }}</span></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="vazio"><div class="vazio-icone">▦</div><strong>Nenhuma carenagem conferida no período</strong><span>Altere o intervalo de datas e aplique o filtro novamente.</span></div>
+                    {% endif %}
+                </div>
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Recibos gerados</h2>
+                            <p>Entregas registradas pelos fornecedores no período selecionado.</p>
+                        </div>
+                        <span class="total-registros">{{ dashboard_entregas|length }} entrega(s)</span>
+                    </div>
+                    {% if dashboard_entregas %}
+                    <div class="tabela-container">
+                        <table class="tabela dashboard-tabela">
+                            <thead><tr><th>Recibo</th><th>Data</th><th>Fornecedor</th><th>Itens</th><th>Entregue</th><th>Conferido</th><th></th></tr></thead>
+                            <tbody>
+                            {% for entrega in dashboard_entregas %}
+                                <tr>
+                                    <td><strong>{{ entrega['numero_recibo'] or 'Sem recibo' }}</strong></td>
+                                    <td>{{ entrega['data'][8:10] }}/{{ entrega['data'][5:7] }}/{{ entrega['data'][0:4] }}</td>
+                                    <td>{{ entrega['responsavel'] }}</td>
+                                    <td>{{ entrega['tipos_itens'] }}</td>
+                                    <td>{{ entrega['quantidade_entregue'] }}</td>
+                                    <td>{{ entrega['quantidade_conferida'] }}</td>
+                                    <td><a class="botao-abrir" href="{{ url_for('detalhe_pedido', recebimento_id=entrega['id']) }}">Abrir</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="vazio"><strong>Nenhuma entrega registrada no período.</strong><span>Altere o intervalo de datas e aplique o filtro novamente.</span></div>
+                    {% endif %}
+                </div>
+
+                <script>
+                (() => {
+                    const inicio = document.getElementById('dashboard-inicio');
+                    const fim = document.getElementById('dashboard-fim');
+                    if (!inicio || !fim) return;
+                    inicio.addEventListener('change', () => {
+                        if (fim.value && inicio.value > fim.value) fim.value = inicio.value;
+                    });
+                    fim.addEventListener('change', () => {
+                        if (inicio.value && fim.value < inicio.value) inicio.value = fim.value;
+                    });
+                })();
+                </script>
+
+
+            {% elif pagina == "pedido-detalhe" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Pedido / Recebimento #{{ recebimento["numero_recibo"] }}</h1>
+                        <p>Acompanhe todas as etapas, os responsáveis e os itens deste recebimento.</p>
+                    </div>
+                    <a href="{{ url_for('inicio') }}" class="botao-secundario">← Voltar para o início</a>
+                </div>
+
+                <div class="painel detalhe-resumo">
+                    <div class="detalhe-resumo-grid">
+                        <div><span>Nº do recibo</span><strong>{{ recebimento["numero_recibo"] }}</strong></div>
+                        <div><span>Data</span><strong>{{ recebimento["data"] }}</strong></div>
+                        <div><span>Responsável</span><strong>{{ recebimento["responsavel"] }}</strong></div>
+                        <div><span>NF-e</span><strong>{{ recebimento["numero_nfe"] or "Aguardando NF-e" }}</strong></div>
+                        <div><span>Status atual</span>
+                            {% if recebimento["status"] == "Aguardando conferência" %}
+                                <span class="status-pedido status-conferencia">Aguardando conferência</span>
+                            {% elif recebimento["status"] == "Aguardando entrada" and recebimento["numero_nfe"] %}
+                                <span class="status-pedido status-entrada">Aguardando entrada</span>
+                            {% elif recebimento["status"] == "Aguardando entrada" %}
+                                <span class="status-pedido status-nfe">Aguardando NF-e</span>
+                            {% elif recebimento["status"] in ["Finalizado", "Conferido"] %}
+                                <span class="status-pedido status-finalizado">Finalizado</span>
+                            {% else %}
+                                <span class="status-pedido">{{ recebimento["status"] }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detalhe-grid">
+                    <div class="painel">
+                        <div class="painel-header">
+                            <div>
+                                <h2>Linha do tempo</h2>
+                                <p>Quem avançou cada etapa do recebimento.</p>
+                            </div>
+                        </div>
+                        <div class="linha-tempo">
+                            {% if eventos %}
+                                {% for evento in eventos %}
+                                    <div class="linha-tempo-item concluida">
+                                        <div class="linha-tempo-ponto">✓</div>
+                                        <div class="linha-tempo-conteudo">
+                                            <strong>{{ evento["etapa"] }}</strong>
+                                            {% if evento["usuario"] %}
+                                                <span>Responsável: {{ evento["usuario"] }}</span>
+                                            {% endif %}
+                                            {% if evento["data"] %}
+                                                <small>{{ evento["data"] }}</small>
+                                            {% endif %}
+                                            {% if evento["detalhe"] %}
+                                                <small>{{ evento["detalhe"] }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="aviso-sem-registro">Nenhum evento registrado para este recebimento.</div>
+                            {% endif %}
+                        </div>
+
+                        {% if recebimento["motivo_rejeicao"] %}
+                            <div class="motivo-rejeicao-detalhe">
+                                <strong>Motivo da rejeição:</strong>
+                                <span>{{ recebimento["motivo_rejeicao"] }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="painel">
+                        <div class="painel-header">
+                            <div>
+                                <h2>Peças do pedido</h2>
+                                <p>Itens registrados neste recebimento.</p>
+                            </div>
+                        </div>
+                        {% if itens_pedido %}
+                            <div class="tabela-container">
+                                <table class="tabela-itens">
+                                    <thead>
+                                        <tr>
+                                            <th>Referência</th>
+                                            <th>Descrição</th>
+                                            <th>Entregue</th>
+                                            <th>Conferida</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in itens_pedido %}
+                                            <tr>
+                                                <td>{{ item["referencia"] }}</td>
+                                                <td>{{ item["descricao"] }}</td>
+                                                <td>{{ item["quantidade_entregue"] }}</td>
+                                                <td>{{ item["quantidade_conferida"] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="vazio"><strong>Nenhuma peça registrada.</strong></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+            <!-- ==================================================
+                 NOVO RECEBIMENTO
+            ================================================== -->
+
+
+            {% elif pagina == "nova-entrega" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Nova Entrega</h1>
+                        <p>Registre a entrega das peças antes da conferência do setor.</p>
+                    </div>
+                </div>
+
+                <form action="{{ url_for('salvar_nova_entrega') }}" method="POST" class="painel">
+
+                    <div class="formulario">
+
+                        <div class="secao-titulo">Dados da entrega</div>
+
+                        <div class="form-grid">
+                            <div class="campo">
+                                <label>Data da entrega *</label>
+                                <input type="date" name="data" value="{{ data_atual }}" required>
+                            </div>
+                        </div>
+
+                        <div class="secao-form">
+                            <div class="secao-titulo">Peças entregues</div>
+
+                            <div class="tabela-container">
+                                <table class="tabela-itens">
+                                    <thead>
+                                        <tr>
+                                            <th>Referência</th>
+                                            <th>Descrição</th>
+                                            <th style="width:180px;">Quantidade entregue</th>
+                                            <th style="width:50px;"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="itens-entrega">
+                                        <tr class="linha-item">
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    name="referencia[]"
+                                                    class="referencia-carenagem"
+                                                    list="lista-referencias-carenagens"
+                                                    autocomplete="off"
+                                                    placeholder="Digite a referência..."
+                                                    required
+                                                    oninput="preencherDescricao(this)"
+                                                >
+                                            </td>
+                                            <td><input type="text" name="descricao[]" class="descricao-carenagem" readonly required></td>
+                                            <td><input type="number" name="quantidade_entregue[]" min="0" value="0" required></td>
+                                            <td>
+                                                <button type="button" class="botao-remover" onclick="removerEntrega(this)">×</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <button type="button" class="adicionar-item" onclick="adicionarEntrega()">
+                                + Adicionar peça
+                            </button>
+                        </div>
+
+                        <div class="acoes-fluxo">
+                            <button type="submit" class="botao-principal">
+                                Registrar entrega
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+
+                <script>
+                    function adicionarEntrega() {
+                        const tbody = document.getElementById("itens-entrega");
+                        const tr = document.createElement("tr");
+                        tr.className = "linha-item";
+                        tr.innerHTML = `
+                            <td>
+                                <input
+                                    type="text"
+                                    name="referencia[]"
+                                    class="referencia-carenagem"
+                                    list="lista-referencias-carenagens"
+                                    autocomplete="off"
+                                    placeholder="Digite a referência..."
+                                    required
+                                    oninput="preencherDescricao(this)"
+                                >
+                            </td>
+                            <td><input type="text" name="descricao[]" class="descricao-carenagem" readonly required></td>
+                            <td><input type="number" name="quantidade_entregue[]" min="0" value="0" required></td>
+                            <td><button type="button" class="botao-remover" onclick="removerEntrega(this)">×</button></td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+
+                    function removerEntrega(botao) {
+                        const linhas = document.querySelectorAll("#itens-entrega .linha-item");
+                        if (linhas.length > 1) {
+                            botao.closest("tr").remove();
+                        }
+                    }
+                </script>
+
+                {% if entregas_fornecedor is defined %}
+                    <div class="painel" style="margin-top:20px;">
+                        <div class="painel-header"><div><h2>Minhas entregas pendentes</h2><p>Enquanto o operador não iniciar o recebimento, você pode alterar a entrega.</p></div></div>
+                        {% if entregas_fornecedor %}
+                            <div class="tabela-container"><table class="tabela-itens"><thead><tr><th>Entrega</th><th>Data</th><th>Status</th><th>Ação</th></tr></thead><tbody>
+                            {% for entrega in entregas_fornecedor %}<tr><td>#{{ entrega["id"] }}</td><td>{{ entrega["data"] }}</td><td><span class="status status-amarelo">Aguardando recebimento</span></td><td><a href="{{ url_for('editar_entrega', recebimento_id=entrega['id']) }}" class="botao-abrir">Editar</a></td></tr>{% endfor %}
+                            </tbody></table></div>
+                        {% else %}<div class="vazio"><strong>Nenhuma entrega pendente para edição.</strong></div>{% endif %}
+                    </div>
+                {% endif %}
+
+            {% elif pagina == "editar-entrega" %}
+                <div class="cabecalho"><div><h1>Editar Entrega #{{ recebimento["id"] }}</h1><p>Edite os dados enquanto o operador ainda não iniciou o recebimento.</p></div><a href="{{ url_for('nova_entrega') }}" class="botao-secundario">← Voltar</a></div>
+                <div class="mensagem mensagem-sucesso" style="margin-bottom:14px;"><strong>✓ Edição liberada</strong><br>Quando o operador iniciar o recebimento, esta entrega será bloqueada para o fornecedor.</div>
+                <form action="{{ url_for('salvar_edicao_entrega', recebimento_id=recebimento['id']) }}" method="POST" class="painel">
+                    <div class="formulario"><div class="secao-titulo">Dados da entrega</div><div class="form-grid"><div class="campo"><label>Data da entrega *</label><input type="date" name="data" value="{{ recebimento['data'] }}" required></div></div>
+                    <div class="secao-form"><div class="secao-titulo">Peças entregues</div><div class="tabela-container"><table class="tabela-itens"><thead><tr><th>Referência</th><th>Descrição</th><th style="width:180px;">Quantidade entregue</th><th></th></tr></thead><tbody id="itens-entrega">
+                    {% for item in itens %}<tr class="linha-item"><td><input type="text" name="referencia[]" class="referencia-carenagem" list="lista-referencias-carenagens" autocomplete="off" value="{{ item['referencia'] }}" required oninput="preencherDescricao(this)"></td><td><input type="text" name="descricao[]" class="descricao-carenagem" value="{{ catalogo_carenagens.get(item['referencia'], item['descricao']) }}" readonly required></td><td><input type="number" name="quantidade_entregue[]" min="0" value="{{ item['quantidade_entregue'] }}" required></td><td><button type="button" class="botao-remover" onclick="removerEntrega(this)">×</button></td></tr>{% endfor %}
+                    </tbody></table></div><button type="button" class="adicionar-item" onclick="adicionarEntrega()">+ Adicionar peça</button></div><div class="acoes-fluxo"><button type="submit" class="botao-principal">Salvar alterações</button></div></div>
+                </form>
+                <script>function adicionarEntrega(){const t=document.getElementById('itens-entrega'),r=document.createElement('tr');r.className='linha-item';r.innerHTML='<td><input type="text" name="referencia[]" class="referencia-carenagem" list="lista-referencias-carenagens" required oninput="preencherDescricao(this)"></td><td><input type="text" name="descricao[]" class="descricao-carenagem" readonly required></td><td><input type="number" name="quantidade_entregue[]" min="0" value="0" required></td><td><button type="button" class="botao-remover" onclick="removerEntrega(this)">×</button></td>';t.appendChild(r)}function removerEntrega(b){const l=document.querySelectorAll('#itens-entrega .linha-item');if(l.length>1)b.closest('tr').remove()}</script>
+
+            {% elif pagina == "recebimentos" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Receber Entrega</h1>
+                        <p>Entregas registradas pelo fornecedor aguardando recebimento do operador.</p>
+                    </div>
+                </div>
+
+                {% if registros and (registros | selectattr("tem_alteracao_pendente") | list | length) > 0 %}
+                    <div class="mensagem mensagem-erro" style="margin-bottom:14px;">
+                        <strong>⚠ Alteração de peça pendente de ciência</strong><br>
+                        O operador alterou referência e/ou descrição em uma entrega. Abra o recebimento para visualizar o valor informado pelo fornecedor e o valor informado pelo operador.
+                    </div>
+                {% endif %}
+
+                <div class="painel">
+                    {% if registros %}
+                        <div class="tabela-container">
+                            <table class="tabela">
+                                <thead>
+                                    <tr>
+                                        <th>Entrega</th>
+                                        <th>Data</th>
+                                        <th>Fornecedor</th>
+                                        <th>Itens</th>
+                                        <th>Status</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for registro in registros %}
+                                        <tr>
+                                            <td><strong>{{ registro["numero_recibo"] or "Sem Nº de recibo" }}</strong></td>
+                                            <td>{{ registro["data"] }}</td>
+                                            <td>{{ registro["responsavel"] }}</td>
+                                            <td>Entrega aguardando conferência física</td>
+                                            <td>{% if registro["status"] == "Em recebimento" %}<span class="status status-azul">Em recebimento</span>{% else %}<span class="status status-amarelo">Aguardando recebimento</span>{% endif %}</td>
+                                            <td><a href="{{ url_for('recebimento_operador', recebimento_id=registro['id']) }}" class="botao-abrir">{% if registro["status"] == "Em recebimento" %}Continuar{% else %}Iniciar{% endif %}</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="vazio">
+                            <div class="vazio-icone">✓</div>
+                            <strong>Nenhuma entrega aguardando recebimento</strong>
+                            <span>As entregas aparecerão aqui quando um fornecedor registrar uma nova entrega.</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elif pagina == "recebimento-operador" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Receber Entrega</h1>
+                        <p>Confira fisicamente a entrega antes de encaminhá-la ao administrador.</p>
+                    </div>
+                    <a href="{{ url_for('recebimentos') }}" class="botao-secundario">← Voltar</a>
+                </div>
+
+                <div class="painel detalhe-resumo">
+                    <div class="detalhe-resumo-grid" style="grid-template-columns:repeat(2,1fr);">
+                        <div><span>Fornecedor</span><strong>{{ recebimento["responsavel"] }}</strong></div>
+                        <div><span>Data da entrega</span><strong>{{ recebimento["data"] }}</strong></div>
+                    </div>
+                </div>
+
+                <div id="salvamento-automatico" class="mensagem mensagem-sucesso" style="margin-bottom:14px;"><strong>✓ Recebimento em andamento</strong> · Salvamento automático ativado.</div>
+
+                <form id="form-recebimento-operador" method="POST" action="{{ url_for('salvar_conferencia_operador', recebimento_id=recebimento['id']) }}" class="painel">
+                    <div class="form-grid" style="margin-bottom:20px;">
+                        <div class="campo">
+                            <label>Nº do recibo *</label>
+                            <input type="text" name="numero_recibo" value="{{ recebimento['numero_recibo'] or '' }}" required>
+                        </div>
+                    </div>
+                    <div class="painel-header">
+                        <div>
+                            <h2>Conferência da entrega</h2>
+                            <p>O operador pode selecionar/corrigir a referência. A descrição é preenchida automaticamente pela base XLSX e a quantidade entregue não pode ser alterada.</p>
+                        </div>
+                    </div>
+
+                    <div class="tabela-container">
+                        <table class="tabela-itens">
+                            <thead>
+                                <tr>
+                                    <th>Referência</th>
+                                    <th>Descrição</th>
+                                    <th>Quantidade entregue</th>
+                                    <th>Quantidade conferida</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in itens %}
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="referencia[]"
+                                                class="referencia-carenagem"
+                                                list="lista-referencias-carenagens"
+                                                autocomplete="off"
+                                                placeholder="Digite a referência..."
+                                                value="{{ item['referencia'] }}"
+                                                required
+                                                oninput="preencherDescricao(this)"
+                                            >
+                                        </td>
+                                        <td><input type="text" name="descricao[]" class="descricao-carenagem" value="{{ catalogo_carenagens.get(item['referencia'], item['descricao']) }}" readonly required></td>
+                                        <td><input type="number" value="{{ item['quantidade_entregue'] }}" readonly style="background:#f3f4f6"></td>
+                                        <td><input type="number" min="0" name="quantidade_conferida[]" value="{{ item['quantidade_conferida'] }}" required></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="painel-header" style="margin-top:20px;">
+                        <div>
+                            <h2>Conferência física</h2>
+                            <p>Informe as condições encontradas durante o recebimento da entrega.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid" style="margin-top:14px;">
+                        <div class="campo">
+                            <label>Houve divergência?</label>
+                            <select name="divergencia">
+                                <option value="Não" {% if recebimento['divergencia'] != 'Sim' %}selected{% endif %}>Não</option>
+                                <option value="Sim" {% if recebimento['divergencia'] == 'Sim' %}selected{% endif %}>Sim</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Houve avaria?</label>
+                            <select name="avarias">
+                                <option value="Não" {% if recebimento['avarias'] != 'Sim' %}selected{% endif %}>Não</option>
+                                <option value="Sim" {% if recebimento['avarias'] == 'Sim' %}selected{% endif %}>Sim</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Embalagem adequada?</label>
+                            <select name="embalagem_adequada">
+                                <option value="Sim" {% if recebimento['embalagem_adequada'] != 'Não' %}selected{% endif %}>Sim</option>
+                                <option value="Não" {% if recebimento['embalagem_adequada'] == 'Não' %}selected{% endif %}>Não</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="campo" style="margin-top:14px;">
+                        <label>Observações</label>
+                        <textarea name="observacoes" rows="4" placeholder="Digite alguma observação...">{{ recebimento['observacoes'] or '' }}</textarea>
+                    </div>
+
+                    <div class="form-acoes" style="margin-top:20px;">
+                        <a href="{{ url_for('recebimentos') }}" class="botao-secundario">Cancelar</a>
+                        <button type="submit" class="botao-principal">Concluir recebimento</button>
+                    </div>
+                </form>
+
+                <script>
+                (() => {
+                    const form=document.getElementById('form-recebimento-operador'), aviso=document.getElementById('salvamento-automatico'); if(!form)return;
+                    let timer=null,salvando=false;
+                    function salvar(){if(salvando)return;salvando=true;const dados=new FormData(form);fetch(form.action.replace('salvar-conferencia-operador','autosave-recebimento'),{method:'POST',body:dados,credentials:'same-origin',keepalive:true}).then(async r=>{const j=await r.json();if(r.ok&&j.ok){aviso.className='mensagem mensagem-sucesso';aviso.innerHTML='<strong>✓ Salvo automaticamente</strong> às '+j.salvo_em+'.'}else throw new Error(j.erro||'Erro ao salvar');}).catch(e=>{aviso.className='mensagem mensagem-erro';aviso.innerHTML='<strong>⚠</strong> '+e.message;}).finally(()=>salvando=false)}
+                    function agendar(){clearTimeout(timer);timer=setTimeout(salvar,400)}
+                    form.querySelectorAll('input,select,textarea').forEach(e=>{e.addEventListener('input',agendar);e.addEventListener('change',agendar)});
+                    window.addEventListener('beforeunload',()=>{navigator.sendBeacon(form.action.replace('salvar-conferencia-operador','autosave-recebimento'),new FormData(form))});
+                })();
+                </script>
+
+
+            <!-- ==================================================
+                 PENDENTES
+            ================================================== -->
+
+            {% elif pagina == "pendentes" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Entradas Pendentes</h1>
+                        <p>Solicitações aguardando ação do administrador.</p>
+                    </div>
+
+                </div>
+
+                <div class="painel">
+                    {% if registros %}
+                        <div class="tabela-container">
+                            <table class="tabela">
+                                <thead>
+                                    <tr>
+                                        <th>Recibo</th>
+                                        <th>Data</th>
+                                        <th>Responsável</th>
+                                        <th>NF-e</th>
+                                        <th>Status</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for registro in registros %}
+                                        <tr>
+                                            <td>
+                                                <strong>{{ registro["numero_recibo"] }}</strong>
+                                            </td>
+
+                                            <td>{{ registro["data"] }}</td>
+
+                                            <td>{{ registro["responsavel"] }}</td>
+
+                                            <td>
+                                                {% if registro["arquivo_nfe"] %}
+                                                    <a
+                                                        href="{{ url_for('abrir_nfe', nome_arquivo=registro['arquivo_nfe']) }}"
+                                                        target="_blank"
+                                                        class="botao-abrir"
+                                                    >
+                                                        NF {{ registro["numero_nfe"] }}
+                                                    </a>
+                                                {% else %}
+                                                    <span style="color:#9ca3af;">Sem NF-e</span>
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                {% if registro["conferencia_resultado"] == "aprovado" %}
+                                                    <span class="status status-verde">
+                                                        Conferência aprovada
+                                                    </span>
+                                                {% elif registro["conferencia_resultado"] == "rejeitado" %}
+                                                    <span class="status status-vermelho">
+                                                        Conferência rejeitada
+                                                    </span>
+                                                    {% if registro["motivo_rejeicao"] %}
+                                                        <div class="motivo-rejeicao">
+                                                            {{ registro["motivo_rejeicao"] }}
+                                                        </div>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="status status-amarelo">
+                                                        Aguardando NF-e
+                                                    </span>
+                                                {% endif %}
+                                                {% if registro["tem_alteracao_pendente"] %}
+                                                    <div style="margin-top:7px;">
+                                                        <span class="status status-vermelho">⚠ Alteração de peça</span>
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                <a
+                                                    href="{{ url_for('abrir_recebimento', recebimento_id=registro['id']) }}"
+                                                    class="botao-abrir"
+                                                >
+                                                    Abrir
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="vazio">
+                            <div class="vazio-icone">✓</div>
+                            <strong>Nenhuma entrada pendente</strong>
+                            <span>Quando houver uma solicitação, ela aparecerá aqui.</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elif pagina == "entrada" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Entrada do Recebimento</h1>
+                        <p>Gerencie a NF-e e o andamento desta entrada.</p>
+                    </div>
+                    <a href="{{ url_for('pendentes') }}" class="botao-secundario">← Voltar</a>
+                </div>
+
+                {% if alteracoes %}
+                <div class="mensagem mensagem-erro" style="margin-bottom:18px;">
+                    <strong>⚠ Alteração realizada pelo operador</strong><br>
+                    Confira abaixo exatamente o que o fornecedor informou e o que foi corrigido pelo operador.
+                </div>
+
+                <div class="painel" style="margin-bottom:20px;">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Alterações de referência / descrição</h2>
+                            <p>Registro da alteração feita durante o recebimento físico.</p>
+                        </div>
+                    </div>
+                    <div class="tabela-container">
+                        <table class="tabela">
+                            <thead>
+                                <tr>
+                                    <th>Fornecedor informou</th>
+                                    <th>Operador informou</th>
+                                    <th>Usuário</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for alteracao in alteracoes %}
+                                <tr>
+                                    <td>
+                                        <strong>Ref.: {{ alteracao["referencia_original"] }}</strong><br>
+                                        <span>{{ alteracao["descricao_original"] }}</span>
+                                    </td>
+                                    <td>
+                                        <strong>Ref.: {{ alteracao["referencia_atual"] }}</strong><br>
+                                        <span>{{ alteracao["descricao_atual"] }}</span>
+                                    </td>
+                                    <td>{{ alteracao["usuario"] }}</td>
+                                    <td>{{ alteracao["data"] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Dados do recebimento</h2>
+                            <p>Informações registradas pelo operador.</p>
+                        </div>
+                        {% if recebimento["conferencia_resultado"] == "aprovado" %}
+                            <span class="status status-verde">Conferência aprovada</span>
+                        {% elif recebimento["conferencia_resultado"] == "rejeitado" %}
+                            <span class="status status-vermelho">Conferência rejeitada</span>
+                        {% else %}
+                            <span class="status status-amarelo">Aguardando NF-e</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-box"><span>Nº DO RECIBO</span><strong>{{ recebimento["numero_recibo"] }}</strong></div>
+                        <div class="info-box"><span>DATA</span><strong>{{ recebimento["data"] }}</strong></div>
+                        <div class="info-box"><span>RESPONSÁVEL</span><strong>{{ recebimento["responsavel"] }}</strong></div>
+                        <div class="info-box"><span>STATUS</span><strong>{{ recebimento["status"] }}</strong></div>
+                        <div class="info-box"><span>DIVERGÊNCIA</span><strong>{{ recebimento["divergencia"] or "-" }}</strong></div>
+                        <div class="info-box"><span>AVARIAS</span><strong>{{ recebimento["avarias"] or "-" }}</strong></div>
+                        <div class="info-box"><span>EMBALAGEM</span><strong>{{ recebimento["embalagem_adequada"] or "-" }}</strong></div>
+                        <div class="info-box"><span>NF-e</span><strong>{{ recebimento["numero_nfe"] or "Não anexada" }}</strong></div>
+                        <div class="info-box" style="grid-column:span 4;"><span>OBSERVAÇÕES</span><strong>{{ recebimento["observacoes"] or "-" }}</strong></div>
+                        {% if recebimento["conferencia_resultado"] == "rejeitado" and recebimento["motivo_rejeicao"] %}
+                        <div class="info-box" style="grid-column:span 4;background:#fff8f7;border-color:#f0c9c5;"><span>MOTIVO DA REJEIÇÃO</span><strong style="color:#8f2019;">{{ recebimento["motivo_rejeicao"] }}</strong></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div><h2>Itens recebidos</h2><p>Relação de carenagens do recebimento.</p></div>
+                    </div>
+                    <div class="tabela-container">
+                        <table class="tabela">
+                            <thead><tr><th>Referência</th><th>Descrição</th><th>Qtde. entregue</th><th>Qtde. conferida</th></tr></thead>
+                            <tbody>
+                                {% for item in itens %}
+                                <tr><td><strong>{{ item["referencia"] }}</strong></td><td>{{ item["descricao"] }}</td><td>{{ item["quantidade_entregue"] }}</td><td>{{ item["quantidade_conferida"] }}</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {% if recebimento["conferencia_resultado"] == "aprovado" %}
+                    <form action="{{ url_for('confirmar_entrada', recebimento_id=recebimento['id']) }}" method="POST" class="painel">
+                        <div class="painel-header"><div><h2>Confirmar entrada</h2><p>O conferente aprovou a NF-e. Confirme a entrada para finalizar.</p></div></div>
+                        <div class="formulario"><div class="form-acoes"><a href="{{ url_for('pendentes') }}" class="botao-secundario">Cancelar</a><button type="submit" class="botao-principal">Confirmar entrada</button></div></div>
+                    </form>
+                {% else %}
+                    <form action="{{ url_for('anexar_nfe', recebimento_id=recebimento['id']) }}" method="POST" enctype="multipart/form-data" class="painel">
+                        <div class="painel-header"><div><h2>{% if recebimento["conferencia_resultado"] == "rejeitado" %}Substituir NF-e{% else %}Anexar NF-e{% endif %}</h2><p>A NF-e será enviada ao conferente após o anexo.</p></div></div>
+                        <div class="formulario">
+                            <div class="form-grid">
+                                <div class="campo"><label>Nº da NF-e *</label><input type="text" name="numero_nfe" required placeholder="Ex.: 123456" value="{{ recebimento['numero_nfe'] or '' }}"></div>
+                                <div class="campo campo-full"><label>Arquivo da NF-e *</label><div class="upload-area"><input type="file" name="arquivo_nfe" accept=".pdf,.jpg,.jpeg,.png" required><div class="upload-info">Formatos permitidos: PDF, JPG, JPEG e PNG.</div></div></div>
+                            </div>
+                            <div class="form-acoes"><a href="{{ url_for('pendentes') }}" class="botao-secundario">Cancelar</a><button type="submit" class="botao-principal">{% if recebimento["conferencia_resultado"] == "rejeitado" %}Anexar nova NF e enviar para conferência{% else %}Anexar NF e enviar para conferência{% endif %}</button></div>
+                        </div>
+                    </form>
+                {% endif %}
+
+            {% elif pagina == "conferencia" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Conferência</h1>
+                        <p>Recebimentos aguardando conferência.</p>
+                    </div>
+                </div>
+
+                <div class="painel">
+                    {% if registros %}
+                        <div class="tabela-container">
+                            <table class="tabela">
+                                <thead>
+                                    <tr>
+                                        <th>Recibo</th>
+                                        <th>Data</th>
+                                        <th>Responsável</th>
+                                        <th>NF-e</th>
+                                        <th>Status</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for registro in registros %}
+                                        <tr>
+                                            <td><strong>{{ registro["numero_recibo"] or "Sem Nº de recibo" }}</strong></td>
+                                            <td>{{ registro["data"] }}</td>
+                                            <td>{{ registro["responsavel"] }}</td>
+                                            <td>{{ registro["numero_nfe"] or "-" }}</td>
+                                            <td>
+                                                <span class="status status-amarelo">
+                                                    Aguardando conferência
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a
+                                                    href="{{ url_for('abrir_conferencia', recebimento_id=registro['id']) }}"
+                                                    class="botao-abrir"
+                                                >
+                                                    Abrir
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="vazio">
+                            <div class="vazio-icone">✓</div>
+                            <strong>Nenhum recebimento aguardando conferência</strong>
+                            <span>Os recebimentos aparecerão aqui após o administrador anexar a NF-e.</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elif pagina == "conferencia-detalhe" %}
+
+                <div class="cabecalho">
+                    <div>
+                        <h1>Conferência</h1>
+                        <p>Confira somente a NF-e contra o recebimento.</p>
+                    </div>
+                    <a href="{{ url_for('conferencia') }}" class="botao-secundario">← Voltar</a>
+                </div>
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Recebimento {{ recebimento["numero_recibo"] }}</h2>
+                            <p>Responsável pelo recebimento: {{ recebimento["responsavel"] }} · Data: {{ recebimento["data"] }}</p>
+                        </div>
+                        <span class="status status-amarelo">Aguardando conferência</span>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-box"><span>Nº DO RECIBO</span><strong>{{ recebimento["numero_recibo"] }}</strong></div>
+                        <div class="info-box"><span>RESPONSÁVEL</span><strong>{{ recebimento["responsavel"] }}</strong></div>
+                        <div class="info-box"><span>NF-e</span><strong>{{ recebimento["numero_nfe"] or "-" }}</strong></div>
+                        <div class="info-box"><span>STATUS</span><strong>Conferência da NF-e</strong></div>
+                    </div>
+                </div>
+
+                <div class="conferencia-comparacao">
+
+                    <div class="painel conferencia-itens">
+                        <div class="painel-header">
+                            <div>
+                                <h2>Itens do recebimento</h2>
+                                <p>Compare estes dados diretamente com a NF-e apresentada ao lado. A conferência física já foi realizada pelo operador.</p>
+                            </div>
+                        </div>
+
+                        {% if itens %}
+                            <div class="tabela-container">
+                                <table class="tabela">
+                                    <thead>
+                                        <tr>
+                                            <th>Referência</th>
+                                            <th>Descrição</th>
+                                            <th>Qtde. entregue</th>
+                                            <th>Qtde. conferida</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in itens %}
+                                            <tr>
+                                                <td><strong>{{ item["referencia"] }}</strong></td>
+                                                <td>{{ item["descricao"] }}</td>
+                                                <td class="conferencia-quantidade">{{ item["quantidade_entregue"] }}</td>
+                                                <td class="conferencia-quantidade">{{ item["quantidade_conferida"] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="vazio" style="margin:20px;">
+                                <strong>Nenhum item registrado.</strong>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="painel">
+                        <div class="painel-header">
+                            <div>
+                                <h2>Nota Fiscal</h2>
+                                <p>Visualize a NF-e aqui mesmo e compare com o recebimento ao lado.</p>
+                            </div>
+                        </div>
+
+                        {% if recebimento["arquivo_nfe"] %}
+                            <div class="conferencia-nfe">
+                                <iframe
+                                    src="{{ url_for('abrir_nfe', nome_arquivo=recebimento['arquivo_nfe']) }}"
+                                    title="Nota Fiscal Eletrônica"
+                                ></iframe>
+                            </div>
+                        {% else %}
+                            <div class="vazio" style="margin:20px;">
+                                <strong>NF-e não anexada.</strong>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Conferência da NF-e x Recebimento</h2>
+                            <p>Depois de visualizar a NF-e ao lado dos dados do recebimento, confirme a conferência. O conferente não altera referência, descrição, quantidades, divergência, avaria ou embalagem.</p>
+                        </div>
+                    </div>
+                    <div style="padding:20px;">
+                        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer;">
+                            <input type="checkbox" required form="form-aprovar-nfe" name="confirmacao_visual" value="1" style="margin-top:3px;">
+                            <span>Confirmei a NF-e comparando referência, descrição, itens e quantidades com o recebimento.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="painel">
+                    <div class="painel-header">
+                        <div>
+                            <h2>Resultado da conferência</h2>
+                            <p>Depois da comparação, aprove ou rejeite a NF-e. Nenhum dado da conferência física é preenchido aqui.</p>
+                        </div>
+                    </div>
+                    <div class="form-acoes" style="padding:20px;">
+                        <form id="form-aprovar-nfe" action="{{ url_for('aprovar_conferencia', recebimento_id=recebimento['id']) }}" method="POST" style="margin:0;">
+                            <input type="hidden" name="confirmacao_nfe" value="sim">
+                            <button type="submit" class="botao-aprovar">✓ Aprovar NF-e</button>
+                        </form>
+                        <form action="{{ url_for('rejeitar_conferencia', recebimento_id=recebimento['id']) }}" method="POST" style="margin:0;" onsubmit="return rejeitarNfe(this);">
+                            <input type="hidden" name="motivo_rejeicao" value="">
+                            <button type="submit" class="botao-rejeitar">✕ Rejeitar NF-e</button>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                function rejeitarNfe(form) {
+                    const motivo = prompt("Informe o motivo da rejeição da NF-e:");
+                    if (!motivo || !motivo.trim()) return false;
+                    form.querySelector('[name="motivo_rejeicao"]').value = motivo.trim();
+                    return true;
+                }
+                </script>
+
+            {% elif pagina == "notas-fiscais" %}
+
+                <div class="cabecalho">
+
+                    <div>
+
+                        <h1>
+                            Notas Fiscais
+                        </h1>
+
+                        <p>
+                            NF-e vinculadas aos recebimentos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="painel">
+
+                    {% if registros %}
+
+                        <div class="tabela-container">
+
+                            <table class="tabela">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Recibo
+                                        </th>
+
+                                        <th>
+                                            NF-e
+                                        </th>
+
+                                        <th>
+                                            Responsável
+                                        </th>
+
+                                        <th>
+                                            Data da entrada
+                                        </th>
+
+                                        <th>
+                                            Arquivo
+                                        </th>
+
+                                        <th>
+                                            Ação
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    {% for registro in registros %}
+
+                                        <tr>
+
+                                            <td>
+                                                {{ registro["numero_recibo"] }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["numero_nfe"] }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["responsavel_entrada"] or "-" }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["data_entrada"] or "-" }}
+                                            </td>
+
+                                            <td>
+
+                                                {% if registro["arquivo_nfe"] %}
+
+                                                    <a
+                                                        href="{{ url_for('abrir_nfe', nome_arquivo=registro['arquivo_nfe']) }}"
+                                                        target="_blank"
+                                                        class="botao-abrir"
+                                                    >
+                                                        Abrir NF
+                                                    </a>
+
+                                                {% else %}
+
+                                                    -
+
+                                                {% endif %}
+
+                                            </td>
+
+                                            <td>
+
+                                                <form
+                                                    action="{{ url_for('excluir_nfe', recebimento_id=registro['id']) }}"
+                                                    method="POST"
+                                                    style="margin:0;"
+                                                    onsubmit="return confirm('Tem certeza que deseja excluir esta NF-e? A solicitação será mantida e ficará aguardando uma nova NF-e.');"
+                                                >
+                                                    <button
+                                                        type="submit"
+                                                        class="botao-rejeitar"
+                                                    >
+                                                        Excluir
+                                                    </button>
+                                                </form>
+
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="vazio">
+
+                            <strong>
+                                Nenhuma NF-e registrada.
+                            </strong>
+
+                            <span>
+                                As notas aparecerão aqui após a entrada.
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            <!-- ==================================================
+                 HISTÓRICO
+            ================================================== -->
+
+            {% elif pagina == "historico" %}
+
+                <div class="cabecalho">
+
+                    <div>
+
+                        <h1>
+                            Histórico
+                        </h1>
+
+                        <p>
+                            Entradas realizadas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="painel">
+
+                    {% if registros %}
+
+                        <div class="tabela-container">
+
+                            <table class="tabela">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Recibo
+                                        </th>
+
+                                        <th>
+                                            Data
+                                        </th>
+
+                                        <th>
+                                            Responsável
+                                        </th>
+
+                                        <th>
+                                            NF-e
+                                        </th>
+
+                                        <th>
+                                            Data da entrada
+                                        </th>
+
+                                        <th>
+                                            NF
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        {% if "gerenciamento" in permissoes %}
+                                        <th>Ação</th>
+                                        {% endif %}
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    {% for registro in registros %}
+
+                                        <tr>
+
+                                            <td>
+                                                {{ registro["numero_recibo"] }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["data"] }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["responsavel"] }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["numero_nfe"] or "-" }}
+                                            </td>
+
+                                            <td>
+                                                {{ registro["data_entrada"] or "-" }}
+                                            </td>
+
+                                            <td>
+
+                                                {% if registro["arquivo_nfe"] %}
+
+                                                    <a
+                                                        href="{{ url_for('abrir_nfe', nome_arquivo=registro['arquivo_nfe']) }}"
+                                                        target="_blank"
+                                                        class="botao-abrir"
+                                                    >
+                                                        Abrir NF
+                                                    </a>
+
+                                                {% else %}
+
+                                                    -
+
+                                                {% endif %}
+
+                                            </td>
+
+                                            <td>
+
+                                                <span class="status status-verde">
+                                                    Entrada realizada
+                                                </span>
+
+                                            </td>
+
+                                            {% if "gerenciamento" in permissoes %}
+                                            <td>
+                                                <form action="{{ url_for('excluir_historico', recebimento_id=registro['id']) }}" method="POST" style="margin:0;" onsubmit="return confirm('Tem certeza que deseja excluir este registro do histórico? Esta ação não pode ser desfeita.');">
+                                                    <button type="submit" class="botao-rejeitar">Excluir</button>
+                                                </form>
+                                            </td>
+                                            {% endif %}
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="vazio">
+
+                            <strong>
+                                Nenhuma entrada realizada.
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            <!-- ==================================================
+                 GERENCIAMENTO
+            ================================================== -->
+
+            {% elif pagina == "gerenciamento" %}
+
+                <div class="cabecalho">
+
+                    <div>
+
+                        <h1>
+                            Gerenciamento
+                        </h1>
+
+                        <p>
+                            Gerencie usuários, cargos e acessos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CRIAR USUÁRIO -->
+
+                <div class="painel">
+
+                    <div class="painel-header">
+
+                        <div>
+
+                            <h2>
+                                Criar usuário
+                            </h2>
+
+                            <p>
+                                Cadastre um novo usuário no sistema.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        action="{{ url_for('criar_usuario') }}"
+                        method="POST"
+                        class="formulario"
+                    >
+
+                        <div class="form-grid">
+
+                            <div class="campo">
+
+                                <label>
+                                    Nome *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="nome"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Usuário *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="usuario"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Senha inicial *
+                                </label>
+
+                                <input
+                                    type="password"
+                                    name="senha"
+                                    minlength="6"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label>
+                                    Cargo *
+                                </label>
+
+                                <select name="perfil">
+
+                                    <option value="operador">
+                                        Operador
+                                    </option>
+
+                                    <option value="conferente">
+                                        Conferente
+                                    </option>
+
+                                    <option value="admin">
+                                        Administrador
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-acoes">
+
+                            <button
+                                type="submit"
+                                class="botao-principal"
+                            >
+                                Criar usuário
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- USUÁRIOS -->
+
+                <div class="painel">
+
+                    <div class="painel-header">
+
+                        <div>
+
+                            <h2>
+                                Usuários cadastrados
+                            </h2>
+
+                            <p>
+                                Gerencie cargos, status e senhas.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if usuarios %}
+
+                        <div class="tabela-container">
+
+                            <table class="tabela">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Nome
+                                        </th>
+
+                                        <th>
+                                            Usuário
+                                        </th>
+
+                                        <th>
+                                            Cargo
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th>
+                                            Criado em
+                                        </th>
+
+                                        <th>
+                                            Ações
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    {% for usuario in usuarios %}
+
+                                        <tr>
+
+                                            <td>
+                                                <strong>
+                                                    {{ usuario["nome"] }}
+                                                </strong>
+                                            </td>
+
+
+                                            <td>
+                                                {{ usuario["usuario"] }}
+                                            </td>
+
+
+                                            <td>
+
+                                                <form
+                                                    action="{{ url_for('alterar_perfil', usuario_id=usuario['id']) }}"
+                                                    method="POST"
+                                                    style="display:flex;gap:6px;"
+                                                >
+
+                                                    <select
+                                                        name="perfil"
+                                                        style="padding:6px;border:1px solid #dfe3e8;border-radius:6px;font-size:11px;"
+                                                    >
+
+                                                        <option
+                                                            value="admin"
+                                                            {% if usuario["perfil"] == "admin" %}selected{% endif %}
+                                                        >
+                                                            Administrador
+                                                        </option>
+
+                                                        <option
+                                                            value="operador"
+                                                            {% if usuario["perfil"] == "operador" %}selected{% endif %}
+                                                        >
+                                                            Operador
+                                                        </option>
+
+                                                        <option
+                                                            value="conferente"
+                                                            {% if usuario["perfil"] == "conferente" %}selected{% endif %}
+                                                        >
+                                                            Conferente
+                                                        </option>
+
+                                                    </select>
+
+
+                                                    <button
+                                                        type="submit"
+                                                        class="botao-pequeno"
+                                                    >
+                                                        Salvar
+                                                    </button>
+
+                                                </form>
+
+                                            </td>
+
+
+                                            <td>
+
+                                                {% if usuario["ativo"] %}
+
+                                                    <span class="status status-verde">
+                                                        Ativo
+                                                    </span>
+
+                                                {% else %}
+
+                                                    <span class="status status-vermelho">
+                                                        Inativo
+                                                    </span>
+
+                                                {% endif %}
+
+                                            </td>
+
+
+                                            <td>
+                                                {{ usuario["criado_em"] }}
+                                            </td>
+
+
+                                            <td>
+
+                                                <div class="usuario-acoes">
+
+                                                    <!-- RESETAR SENHA -->
+
+                                                    <form
+                                                        action="{{ url_for('alterar_senha', usuario_id=usuario['id']) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Resetar a senha deste usuário para TEMP?');"
+                                                    >
+
+                                                        <button
+                                                            type="submit"
+                                                            class="botao-pequeno botao-reset"
+                                                        >
+                                                            Resetar senha
+                                                        </button>
+
+                                                    </form>
+
+
+                                                    <!-- ATIVAR / DESATIVAR -->
+
+                                                    <form
+                                                        action="{{ url_for('alterar_status_usuario', usuario_id=usuario['id']) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Alterar o status deste usuário?');"
+                                                    >
+
+                                                        <button
+                                                            type="submit"
+                                                            class="botao-pequeno"
+                                                        >
+
+                                                            {% if usuario["ativo"] %}
+                                                                Desativar
+                                                            {% else %}
+                                                                Ativar
+                                                            {% endif %}
+
+                                                        </button>
+
+                                                    </form>
+
+
+                                                    <!-- EXCLUIR -->
+
+                                                    <form
+                                                        action="{{ url_for('excluir_usuario', usuario_id=usuario['id']) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');"
+                                                    >
+
+                                                        <button
+                                                            type="submit"
+                                                            class="botao-pequeno botao-perigo"
+                                                        >
+                                                            Excluir
+                                                        </button>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="vazio">
+
+                            <strong>
+                                Nenhum usuário cadastrado.
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<datalist id="lista-referencias-carenagens">
+    {% for referencia in catalogo_carenagens.keys() %}
+        <option value="{{ referencia }}"></option>
+    {% endfor %}
+</datalist>
+
+<script>
+
+    // =====================================================
+    // REFERÊNCIA -> DESCRIÇÃO (base XLSX)
+    // Campo pesquisável: o usuário vê/digita somente a referência.
+    // A descrição fica no campo próprio e é preenchida automaticamente.
+    // =====================================================
+    const catalogoCarenagens = {{ catalogo_carenagens | tojson }};
+
+    function preencherDescricao(campoReferencia) {
+        const linha = campoReferencia.closest("tr");
+        if (!linha) return;
+        const descricao = linha.querySelector(".descricao-carenagem");
+        if (!descricao) return;
+
+        const referencia = (campoReferencia.value || "").trim();
+        const descricaoEncontrada = catalogoCarenagens[referencia] || "";
+        descricao.value = descricaoEncontrada;
+
+        if (referencia && !descricaoEncontrada) {
+            campoReferencia.setCustomValidity("Selecione uma referência válida da base de carenagens.");
+        } else {
+            campoReferencia.setCustomValidity("");
+        }
+    }
+
+    // Preenche as descrições dos itens já carregados na tela do operador.
+    document.querySelectorAll(".referencia-carenagem").forEach(function(campo) {
+        preencherDescricao(campo);
+    });
+
+    // =====================================================
+    // ADICIONAR ITEM
+    // =====================================================
+
+    function adicionarItem() {
+
+        const tabela =
+            document.getElementById("itens");
+
+        if (!tabela) {
+            return;
+        }
+
+        const linha =
+            document.createElement("tr");
+
+        linha.className = "linha-item";
+
+        linha.innerHTML = `
+
+            <td>
+
+                <input
+                    type="text"
+                    name="referencia[]"
+                    required
+                >
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="text"
+                    name="descricao[]"
+                    required
+                >
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    name="quantidade_entregue[]"
+                    min="0"
+                    value="0"
+                    required
+                >
+
+            </td>
+
+
+            <td>
+
+                <input
+                    type="number"
+                    name="quantidade_conferida[]"
+                    min="0"
+                    value="0"
+                    required
+                >
+
+            </td>
+
+
+            <td>
+
+                <button
+                    type="button"
+                    class="botao-remover"
+                    onclick="removerItem(this)"
+                >
+                    ×
+                </button>
+
+            </td>
+
+        `;
+
+        tabela.appendChild(linha);
+    }
+
+
+    // =====================================================
+    // REMOVER ITEM
+    // =====================================================
+
+    function removerItem(botao) {
+
+        const tabela =
+            document.getElementById("itens");
+
+        if (!tabela) {
+            return;
+        }
+
+        const linhas =
+            tabela.querySelectorAll(".linha-item");
+
+        if (linhas.length <= 1) {
+
+            alert(
+                "O recebimento precisa ter pelo menos um item."
+            );
+
+            return;
+        }
+
+        botao
+            .closest("tr")
+            .remove();
+    }
+
+
+    // =====================================================
+    // MOSTRAR DETALHES
+    // =====================================================
+
+    function mostrarDetalhe(
+        selectId,
+        campoId
+    ) {
+
+        const select =
+            document.getElementById(selectId);
+
+        const campo =
+            document.getElementById(campoId);
+
+        if (!select || !campo) {
+            return;
+        }
+
+        if (select.value === "Sim") {
+
+            campo.style.display = "flex";
+
+        } else {
+
+            campo.style.display = "none";
+
+        }
+    }
+
+</script>
+
+
+
+
+<script>
+(function(){
+    let registrosInicio = [];
+    let filtroAtual = 'Todos';
+    let primeiraCarga = true;
+
+    function escapeHtml(valor) {
+        return String(valor ?? '')
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;')
+            .replace(/'/g,'&#039;');
+    }
+
+    function classeStatus(status) {
+        if (status === 'Aguardando recebimento') return 'status-recebimento';
+        if (status === 'Aguardando NF-e') return 'status-nfe';
+        if (status === 'Aguardando conferência') return 'status-conferencia';
+        if (status === 'Aguardando entrada') return 'status-entrada';
+        if (status === 'Finalizado') return 'status-finalizado';
+        return '';
+    }
+
+    function montarTabela() {
+        const tbody = document.querySelector('#tabelaPedidos tbody');
+        const vazio = document.getElementById('vazioPedidos');
+        const buscaEl = document.getElementById('buscaPedidos');
+        if (!tbody || !vazio) return;
+
+        const busca = (buscaEl?.value || '').trim().toLowerCase();
+        const filtrados = registrosInicio.filter(r => {
+            const texto = `${r.numero_recibo || ''} ${r.responsavel || ''} ${r.numero_nfe || ''} ${r.status_inicio || ''} ${r.ultima_etapa || ''} ${r.responsavel_etapa || ''}`.toLowerCase();
+            const passouBusca = !busca || texto.includes(busca);
+            const passouStatus = filtroAtual === 'Todos' || r.status_inicio === filtroAtual;
+            return passouBusca && passouStatus;
+        });
+
+        tbody.innerHTML = filtrados.map(r => `
+            <tr class="linha-pedido" onclick="window.location.href='/pedido/${encodeURIComponent(r.id)}'">
+                <td><span class="pedido-numero">#${escapeHtml(r.numero_recibo)}</span><span class="pedido-sub">ID interno ${escapeHtml(r.id)}</span></td>
+                <td>${escapeHtml(r.data)}</td>
+                <td>${escapeHtml(r.responsavel)}</td>
+                <td>${escapeHtml(r.numero_nfe || '—')}</td>
+                <td><span class="status-pedido ${classeStatus(r.status_inicio)}">${escapeHtml(r.status_inicio)}</span></td>
+                <td>${escapeHtml(r.ultima_etapa)}</td>
+                <td>${escapeHtml(r.responsavel_etapa)}</td>
+                <td><span class="botao-pequeno">Abrir →</span></td>
+            </tr>
+        `).join('');
+
+        if (!filtrados.length) {
+            tbody.innerHTML = '';
+            vazio.style.display = 'flex';
+        } else {
+            vazio.style.display = 'none';
+        }
+    }
+
+    window.filtrarPedidosTempoReal = montarTabela;
+
+    window.selecionarFiltro = function(botao) {
+        document.querySelectorAll('.filtro-status').forEach(b => b.classList.remove('ativo'));
+        botao.classList.add('ativo');
+        filtroAtual = botao.dataset.filtro || 'Todos';
+        montarTabela();
+    };
+
+    async function atualizarInicioTempoReal() {
+        const indicador = document.getElementById('statusTempoReal');
+        if (!indicador) return;
+
+        try {
+            const resposta = await fetch('/api/inicio?_=' + Date.now(), {
+                method: 'GET',
+                cache: 'no-store',
+                headers: {'Cache-Control':'no-cache'}
+            });
+            if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+
+            const dados = await resposta.json();
+            registrosInicio = Array.isArray(dados.registros) ? dados.registros : [];
+
+            document.getElementById('cardAguardandoNfe').textContent = dados.contagens?.['Aguardando NF-e'] || 0;
+            document.getElementById('cardAguardandoConferencia').textContent = dados.contagens?.['Aguardando conferência'] || 0;
+            document.getElementById('cardAguardandoEntrada').textContent = dados.contagens?.['Aguardando entrada'] || 0;
+            document.getElementById('cardFinalizados').textContent = dados.contagens?.['Finalizado'] || 0;
+            document.getElementById('totalPedidos').textContent = `${dados.total || 0} registro(s)`;
+
+            montarTabela();
+            indicador.textContent = `● Atualizado ${dados.atualizado_em}`;
+            indicador.style.color = '#16834b';
+            primeiraCarga = false;
+        } catch (erro) {
+            indicador.textContent = '● Sem conexão com o servidor';
+            indicador.style.color = '#c62828';
+            if (primeiraCarga) montarTabela();
+            console.error('Falha no acompanhamento em tempo real:', erro);
+        }
+    }
+
+    if (document.getElementById('tabelaPedidos')) {
+        atualizarInicioTempoReal();
+        setInterval(atualizarInicioTempoReal, 2000);
+    }
+})();
+</script>
+<script>
+function copiarDadosConferencia(formDestino) {
+    const nomes = [
+        "numero_recibo",
+        "data_conferencia",
+        "divergencia",
+        "detalhe_divergencia",
+        "avarias",
+        "detalhe_avarias",
+        "embalagem_adequada",
+        "observacoes"
+    ];
+
+    nomes.forEach(function(nome) {
+        const origem = document.querySelector('[name="' + nome + '"]');
+        const destino = formDestino.querySelector('[name="' + nome + '"]');
+        if (origem && destino) {
+            destino.value = origem.value;
+        }
+    });
+}
+</script>
+</body>
+
+</html>
