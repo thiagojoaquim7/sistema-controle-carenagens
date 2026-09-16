@@ -247,8 +247,6 @@ Também é possível consultar os dados agrupados por referência.
 - SQLite
 - OpenPyXL
 - JSON
-- Git
-- GitHub
 
 ---
 
