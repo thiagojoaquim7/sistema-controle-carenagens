@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Controle de Carenagens</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f5f6f8;
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .login {
+            width: 390px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 35px;
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+
+            margin: 0 auto 12px;
+
+            background: #d9271c;
+
+            color: white;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin: 0;
+
+            color: #111827;
+
+            font-size: 22px;
+        }
+
+        .subtitulo {
+            margin-top: 7px;
+
+            color: #8a93a1;
+
+            font-size: 12px;
+        }
+
+        .campo {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #374151;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #dfe3e8;
+
+            border-radius: 7px;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+        input:focus {
+            border-color: #d9271c;
+
+            box-shadow: 0 0 0 2px rgba(217, 39, 28, 0.08);
+        }
+
+        button {
+            width: 100%;
+
+            border: 0;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            background: #d9271c;
+
+            color: white;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #bb2118;
+        }
+
+        .erro {
+            background: #fae8e6;
+
+            color: #b42318;
+
+            border-radius: 7px;
+
+            padding: 10px;
+
+            margin-bottom: 18px;
+
+            font-size: 12px;
+
+            text-align: center;
+        }
+
+        .rodape {
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                A
+            </div>
+
+            <h1>
+                AVELLOZ
+            </h1>
+
+            <div class="subtitulo">
+                Controle de Carenagens
+            </div>
+
+        </div>
+
+        {% if erro %}
+
+            <div class="erro">
+                {{ erro }}
+            </div>
+
+        {% endif %}
+
+        <form method="POST">
+
+            <div class="campo">
+
+                <label for="campoUsuario">
+                    Usuário
+                </label>
+
+                <input
+                    id="campoUsuario"
+                    type="text"
+                    name="usuario"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <label for="campoSenha">
+                    Senha
+                </label>
+
+                <input
+                    id="campoSenha"
+                    type="password"
+                    name="senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+        <div class="rodape">
+            Sistema de Carenagens • Versão 1.0
+        </div>
+
+    </div>
+
+<script>
+(function () {
+    // ---- CSRF: injeta o token em todo form POST ----
+    var meta = document.querySelector('meta[name="csrf-token"]');
+    var token = meta ? meta.getAttribute('content') : null;
+    if (token) {
+        document.querySelectorAll('form').forEach(function (form) {
+            var metodo = (form.getAttribute('method') || 'GET').toUpperCase();
+            if (metodo !== 'POST') { return; }
+            if (form.querySelector('input[name="csrf_token"]')) { return; }
+            var campo = document.createElement('input');
+            campo.type = 'hidden';
+            campo.name = 'csrf_token';
+            campo.value = token;
+            form.appendChild(campo);
+        });
+    }
+
+    // ---- Menu mobile (hamburguer) - só existe no layout com sidebar (index.html) ----
+    var botaoMenu = document.getElementById('botaoMenuMobile');
+    var sidebar = document.getElementById('sidebarPrincipal');
+    var backdrop = document.getElementById('sidebarBackdrop');
+
+    function fecharMenu() {
+        if (sidebar) { sidebar.classList.remove('aberto'); }
+        if (backdrop) { backdrop.classList.remove('ativo'); }
+        if (botaoMenu) { botaoMenu.setAttribute('aria-expanded', 'false'); }
+    }
+
+    function alternarMenu() {
+        if (!sidebar) { return; }
+        var abrindo = !sidebar.classList.contains('aberto');
+        sidebar.classList.toggle('aberto', abrindo);
+        if (backdrop) { backdrop.classList.toggle('ativo', abrindo); }
+        if (botaoMenu) { botaoMenu.setAttribute('aria-expanded', abrindo ? 'true' : 'false'); }
+    }
+
+    if (botaoMenu) { botaoMenu.addEventListener('click', alternarMenu); }
+    if (backdrop) { backdrop.addEventListener('click', fecharMenu); }
+    if (sidebar) {
+        sidebar.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', fecharMenu);
+        });
+    }
+
+    // ---- Evita duplo envio ----
+    // Ao submeter um formulário válido (nenhum outro handler já cancelou
+    // via preventDefault/confirm/return false), desabilita os botões de
+    // envio e mostra um texto de carregamento. Roda por último (script
+    // no fim do body), então "event.defaultPrevented" já reflete o
+    // resultado de validações anteriores do próprio formulário.
+    document.querySelectorAll('form').forEach(function (form) {
+        form.addEventListener('submit', function (evento) {
+            if (evento.defaultPrevented) { return; }
+            if (form.hasAttribute('data-sem-bloqueio')) { return; }
+            var botoes = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+            botoes.forEach(function (botao) {
+                if (botao.disabled) { return; }
+                var textoCarregando = botao.getAttribute('data-texto-carregando') || 'Enviando...';
+                if (botao.tagName === 'BUTTON') {
+                    botao.innerHTML = textoCarregando;
+                } else {
+                    botao.value = textoCarregando;
+                }
+                botao.disabled = true;
+            });
+        });
+    });
+})();
+</script>
+</body>
+
+</html>

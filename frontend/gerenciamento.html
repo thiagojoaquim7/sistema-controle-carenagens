@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gerenciamento - Controle de Carenagens</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            color: #172033;
+        }
+
+        /* =========================
+           TOPO
+        ========================== */
+
+        .topo {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            text-decoration: none;
+            color: inherit;
+
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            opacity: 0.85;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 9px;
+
+            background: #d9271c;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: #8992a1;
+            margin-top: 2px;
+        }
+
+        /* =========================
+           USUÁRIO
+        ========================== */
+
+        .usuario {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .usuario-circulo {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            background: #d9271c;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        .usuario-nome {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .usuario-cargo {
+            font-size: 10px;
+            color: #8992a1;
+        }
+
+        .sair {
+            margin-left: 20px;
+
+            color: #d9271c;
+
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           CONTEÚDO
+        ========================== */
+
+        .conteudo {
+            max-width: 1300px;
+
+            margin: 0 auto;
+
+            padding: 35px;
+        }
+
+        .titulo {
+            margin-bottom: 25px;
+        }
+
+        .titulo h1 {
+            margin: 0;
+
+            font-size: 24px;
+        }
+
+        .titulo p {
+            margin-top: 7px;
+
+            color: #7b8494;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           CARD
+        ========================== */
+
+        .card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+        }
+
+        .card-titulo {
+            font-size: 16px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           FORMULÁRIO
+        ========================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            align-items: start;
+        }
+
+        .form-grid .campo:nth-child(4) {
+            grid-column: 1 / -1;
+        }
+
+        .campo label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            color: #4b5563;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+
+            height: 40px;
+
+            border: 1px solid #dfe3e8;
+
+            border-radius: 7px;
+
+            padding: 0 11px;
+
+            outline: none;
+
+            background: white;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            border-color: #d9271c;
+        }
+
+        /* =========================
+           PERMISSÕES
+        ========================== */
+
+        .permissoes-box {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            background: #f8f9fb;
+
+            border: 1px solid #e8ebef;
+        }
+
+        .permissoes-titulo {
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .cargo-opcoes {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .cargo-opcao {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 9px 12px;
+            border: 1px solid #dfe3e8;
+            border-radius: 8px;
+            background: white;
+            font-size: 11px;
+            font-weight: 600;
+            color: #344054;
+            cursor: pointer;
+            transition: .15s ease;
+        }
+
+        .cargo-opcao:hover {
+            border-color: #c8ced8;
+            background: #fafafa;
+        }
+
+        .cargo-opcao:has(input:checked) {
+            border-color: #d9271c;
+            background: #fff5f3;
+            color: #c6281d;
+        }
+
+        .cargo-opcao input {
+            width: auto;
+            height: auto;
+            margin: 0;
+            accent-color: #d9271c;
+        }
+
+        .cargo-ajuda {
+            margin-top: 7px;
+            font-size: 10px;
+            color: #8992a1;
+        }
+
+        .cargos-edicao {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cargos-edicao summary {
+            list-style: none;
+            cursor: pointer;
+            border: 1px solid #dfe3e8;
+            border-radius: 7px;
+            padding: 7px 10px;
+            font-size: 10px;
+            background: white;
+            color: #344054;
+        }
+
+        .cargos-edicao summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .cargos-edicao[open] summary {
+            border-color: #d9271c;
+            color: #d9271c;
+        }
+
+        .cargos-edicao-box {
+            position: absolute;
+            z-index: 20;
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 220px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #dfe3e8;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(16,24,40,.12);
+        }
+
+        .cargos-edicao-box label {
+            display: block;
+            padding: 5px 0;
+            font-size: 11px;
+            color: #344054;
+        }
+
+        .cargos-edicao-box input {
+            margin-right: 6px;
+            accent-color: #d9271c;
+        }
+
+        .cargos-salvar {
+            margin-top: 8px;
+            border: 0;
+            border-radius: 6px;
+            padding: 7px 10px;
+            background: #d9271c;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .permissao {
+            display: inline-block;
+
+            background: white;
+
+            border: 1px solid #e1e5ea;
+
+            border-radius: 20px;
+
+            padding: 7px 12px;
+
+            margin-right: 6px;
+            margin-bottom: 6px;
+
+            font-size: 11px;
+
+            color: #4b5563;
+        }
+
+        /* =========================
+           BOTÕES
+        ========================== */
+
+        .botao {
+            margin-top: 20px;
+
+            background: #d9271c;
+
+            border: 0;
+
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .botao:hover {
+            background: #b92319;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .acoes .cargos-edicao {
+            flex: 0 0 auto;
+        }
+
+        .acoes .cargos-edicao-box {
+            right: 0;
+            left: auto;
+            min-width: 210px;
+        }
+
+        .acoes form {
+            margin: 0;
+        }
+
+        .btn-pequeno {
+            border: 1px solid #dfe3e8;
+
+            background: white;
+
+            padding: 7px 10px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 10px;
+
+            white-space: nowrap;
+        }
+
+        .btn-pequeno:hover {
+            background: #f5f6f8;
+        }
+
+        /* BOTÃO RESETAR SENHA */
+
+        .btn-senha {
+            color: #2459b8;
+
+            border-color: #cbdaf5;
+        }
+
+        .btn-senha:hover {
+            background: #eef4ff;
+        }
+
+        /* BOTÃO EXCLUIR */
+
+        .btn-excluir {
+            color: #d9271c;
+
+            border-color: #f0c7c3;
+        }
+
+        .btn-excluir:hover {
+            background: #fff0ee;
+        }
+
+        /* =========================
+           TABELA
+        ========================== */
+
+        .tabela-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 920px;
+            border-collapse: collapse;
+        }
+
+        th:last-child,
+        td:last-child {
+            width: 400px;
+        }
+
+        th {
+            text-align: left;
+
+            padding: 12px;
+
+            background: #f8f9fb;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            font-size: 11px;
+
+            color: #6b7280;
+        }
+
+        td {
+            padding: 14px 12px;
+
+            border-bottom: 1px solid #eef0f3;
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           CARGOS
+        ========================== */
+
+        .badge {
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+        }
+
+        .admin {
+            background: #fde8e6;
+
+            color: #c6281d;
+        }
+
+        .operador {
+            background: #e8f0ff;
+
+            color: #2459b8;
+        }
+
+        .conferente {
+            background: #e8f7ee;
+
+            color: #23824b;
+        }
+
+        /* =========================
+           STATUS
+        ========================== */
+
+        .ativo {
+            color: #23824b;
+
+            font-weight: bold;
+        }
+
+        .inativo {
+            color: #a1a7b0;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           ALERTAS
+        ========================== */
+
+        .alerta {
+            padding: 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 20px;
+
+            font-size: 12px;
+        }
+
+        .sucesso {
+            background: #eaf7ef;
+
+            color: #247746;
+        }
+
+        .erro {
+            background: #fdecea;
+
+            color: #b42318;
+        }
+
+        /* =========================
+           RESPONSIVO
+        ========================== */
+
+        @media (max-width: 1100px) {
+
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-grid .campo:nth-child(4) {
+                grid-column: 1 / -1;
+            }
+
+            .cargo-opcoes {
+                grid-template-columns: repeat(2, minmax(150px, 1fr));
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid .campo:nth-child(4) {
+                grid-column: auto;
+            }
+
+            .cargo-opcoes {
+                grid-template-columns: 1fr;
+            }
+
+            .conteudo {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TOPO
+====================================================== -->
+
+<header class="topo">
+
+
+    <!-- CLICAR NO AVELLOZ VOLTA AO MENU -->
+
+    <a
+        href="{{ url_for('inicio') }}"
+        class="logo"
+        title="Voltar ao menu"
+    >
+
+        <div class="logo-icon">
+            A
+        </div>
+
+
+        <div>
+
+            <div class="logo-text">
+                AVELLOZ
+            </div>
+
+            <div class="logo-sub">
+                Controle de Carenagens
+            </div>
+
+        </div>
+
+    </a>
+
+
+    <!-- USUÁRIO LOGADO -->
+
+    <div class="usuario">
+
+
+        <div>
+
+            <div class="usuario-nome">
+                {{ usuario_logado["nome"] }}
+            </div>
+
+
+            <div class="usuario-cargo">
+
+                {% if usuario_logado["perfil"] == "admin" %}
+
+                    Administrador
+
+                {% elif usuario_logado["perfil"] == "operador" %}
+
+                    Operador
+
+                {% else %}
+
+                    Conferente
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="usuario-circulo">
+
+            {{ usuario_logado["nome"][0]|upper }}
+
+        </div>
+
+
+        <a
+            class="sair"
+            href="{{ url_for('logout') }}"
+        >
+            Sair
+        </a>
+
+
+    </div>
+
+
+</header>
+
+
+<!-- =====================================================
+     CONTEÚDO
+====================================================== -->
+
+<main class="conteudo">
+
+
+    <div class="titulo">
+
+        <h1>
+            Gerenciamento
+        </h1>
+
+        <p>
+            Gerencie usuários, cargos, acessos e senhas.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         MENSAGENS
+    ================================================== -->
+
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+
+        {% for categoria, mensagem in mensagens %}
+
+            <div class="alerta {{ categoria }}">
+
+                {{ mensagem }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <!-- =================================================
+         CRIAR USUÁRIO
+    ================================================== -->
+
+    <div class="card">
+
+
+        <div class="card-titulo">
+            Criar novo usuário
+        </div>
+
+
+        <form
+            id="form-criar-usuario"
+            method="POST"
+            action="{{ url_for('criar_usuario') }}"
+        >
+
+
+            <div class="form-grid">
+
+
+                <div class="campo">
+
+                    <label>
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nome"
+                        placeholder="Nome do usuário"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Usuário
+                    </label>
+
+                    <input
+                        type="text"
+                        name="usuario"
+                        placeholder="Login"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Senha inicial
+                    </label>
+
+                    <input
+                        type="password"
+                        name="senha"
+                        placeholder="Mínimo 6 caracteres"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Cargos
+                    </label>
+
+                    <div class="cargo-opcoes">
+
+                        <label class="cargo-opcao">
+                            <input type="checkbox" name="perfis" value="operador" checked onchange="mostrarPermissoesSelecionadas()">
+                            Operador
+                        </label>
+
+                        <label class="cargo-opcao">
+                            <input type="checkbox" name="perfis" value="conferente" onchange="mostrarPermissoesSelecionadas()">
+                            Conferente
+                        </label>
+
+                        <label class="cargo-opcao">
+                            <input type="checkbox" name="perfis" value="fornecedor" onchange="mostrarPermissoesSelecionadas()">
+                            Fornecedor
+                        </label>
+
+                        <label class="cargo-opcao">
+                            <input type="checkbox" name="perfis" value="admin" onchange="mostrarPermissoesSelecionadas()">
+                            Administrador
+                        </label>
+
+                    </div>
+
+                    <div class="cargo-ajuda">
+                        Selecione um ou mais cargos para o usuário.
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="permissoes-box">
+
+
+                <div class="permissoes-titulo">
+                    Permissões deste cargo
+                </div>
+
+
+                <div id="lista-permissoes"></div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="botao"
+            >
+                Criar usuário
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+    <!-- =================================================
+         USUÁRIOS CADASTRADOS
+    ================================================== -->
+
+    <div class="card">
+
+
+        <div class="card-titulo">
+            Usuários cadastrados
+        </div>
+
+
+        <div class="tabela-wrapper">
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        NOME
+                    </th>
+
+                    <th>
+                        USUÁRIO
+                    </th>
+
+                    <th>
+                        CARGO
+                    </th>
+
+                    <th>
+                        STATUS
+                    </th>
+
+                    <th>
+                        CRIADO EM
+                    </th>
+
+                    <th>
+                        AÇÕES
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                {% for usuario in usuarios %}
+
+
+                <tr>
+
+
+                    <td>
+
+                        <strong>
+                            {{ usuario["nome"] }}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+                        {{ usuario["usuario"] }}
+                    </td>
+
+
+                    <td>
+
+                        {% for cargo in usuario_perfis_map[usuario["id"]] %}
+
+                            {% if cargo == "admin" %}
+
+                                <span class="badge admin">
+                                    Administrador
+                                </span>
+
+                            {% elif cargo == "operador" %}
+
+                                <span class="badge operador">
+                                    Operador
+                                </span>
+
+                            {% elif cargo == "conferente" %}
+
+                                <span class="badge conferente">
+                                    Conferente
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge" style="background:#fff3df;color:#a45a00;">
+                                    Fornecedor
+                                </span>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </td>
+
+
+                    <td>
+
+
+                        {% if usuario["ativo"] %}
+
+                            <span class="ativo">
+                                Ativo
+                            </span>
+
+                        {% else %}
+
+                            <span class="inativo">
+                                Inativo
+                            </span>
+
+                        {% endif %}
+
+
+                    </td>
+
+
+                    <td>
+                        {{ usuario["criado_em"] }}
+                    </td>
+
+
+                    <td>
+
+
+                        {% if usuario["id"] != usuario_logado["id"] %}
+
+
+                        <div class="acoes">
+
+
+                            <!-- ALTERAR CARGOS -->
+
+                            <details class="cargos-edicao">
+
+                                <summary>Cargos</summary>
+
+                                <div class="cargos-edicao-box">
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('alterar_perfil', usuario_id=usuario['id']) }}"
+                                    >
+
+                                        {% for cargo, nome_cargo in perfis.items() %}
+
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="perfis"
+                                                    value="{{ cargo }}"
+                                                    {% if cargo in usuario_perfis_map[usuario["id"]] %}checked{% endif %}
+                                                >
+                                                {{ nome_cargo }}
+                                            </label>
+
+                                        {% endfor %}
+
+                                        <button
+                                            type="submit"
+                                            class="cargos-salvar"
+                                        >
+                                            Salvar cargos
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </details>
+
+
+                            <!-- RESETAR SENHA -->
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('alterar_senha', usuario_id=usuario['id']) }}"
+
+                                onsubmit="return confirmarReset('{{ usuario['nome']|e }}');"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="btn-pequeno btn-senha"
+                                >
+                                    Resetar senha
+                                </button>
+
+                            </form>
+
+
+                            <!-- ATIVAR / DESATIVAR -->
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('alterar_status_usuario', usuario_id=usuario['id']) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="btn-pequeno"
+                                >
+
+                                    {% if usuario["ativo"] %}
+
+                                        Desativar
+
+                                    {% else %}
+
+                                        Ativar
+
+                                    {% endif %}
+
+                                </button>
+
+                            </form>
+
+
+                            <!-- EXCLUIR -->
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('excluir_usuario', usuario_id=usuario['id']) }}"
+
+                                onsubmit="return confirmarExclusao('{{ usuario['nome']|e }}');"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="btn-pequeno btn-excluir"
+                                >
+                                    Excluir
+                                </button>
+
+                            </form>
+
+
+                        </div>
+
+
+                        {% else %}
+
+
+                        <span
+                            style="
+                                color:#999;
+                                font-size:10px;
+                            "
+                        >
+                            Usuário atual
+                        </span>
+
+
+                        {% endif %}
+
+
+                    </td>
+
+
+                </tr>
+
+
+                {% endfor %}
+
+
+                {% if not usuarios %}
+
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        style="
+                            text-align:center;
+                            color:#999;
+                        "
+                    >
+                        Nenhum usuário cadastrado.
+                    </td>
+
+                </tr>
+
+
+                {% endif %}
+
+
+            </tbody>
+
+
+        </table>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+
+    /* =====================================================
+       MOSTRAR PERMISSÕES DO CARGO
+    ====================================================== */
+
+    function mostrarPermissoesSelecionadas() {
+
+        const lista =
+            document.getElementById(
+                "lista-permissoes"
+            );
+
+        const formulario =
+            document.getElementById(
+                "form-criar-usuario"
+            );
+
+        const selecionados =
+            Array.from(
+                formulario.querySelectorAll(
+                    'input[name="perfis"]:checked'
+                )
+            ).map(
+                function(campo) {
+                    return campo.value;
+                }
+            );
+
+        const permissoesPorCargo = {
+
+            admin: [
+                "Início",
+                "Nova Entrega",
+                "Aguardando Recebimento",
+                "Entradas Pendentes",
+                "Conferência",
+                "Notas Fiscais",
+                "Histórico",
+                "Gerenciamento"
+            ],
+
+            operador: [
+                "Início",
+                "Aguardando Recebimento"
+            ],
+
+            conferente: [
+                "Início",
+                "Conferência",
+                "Notas Fiscais"
+            ],
+
+            fornecedor: [
+                "Início",
+                "Nova Entrega"
+            ]
+
+        };
+
+        const permissoes = [];
+
+        selecionados.forEach(
+            function(cargo) {
+
+                (permissoesPorCargo[cargo] || []).forEach(
+                    function(permissao) {
+
+                        if (!permissoes.includes(permissao)) {
+                            permissoes.push(permissao);
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+        lista.innerHTML = "";
+
+        permissoes.forEach(
+            function(permissao) {
+
+                const span =
+                    document.createElement(
+                        "span"
+                    );
+
+                span.className =
+                    "permissao";
+
+                span.textContent =
+                    permissao;
+
+                lista.appendChild(
+                    span
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CONFIRMAR RESET
+    ====================================================== */
+
+    function confirmarReset(
+        nome
+    ) {
+
+
+        return confirm(
+
+            "Resetar a senha de " +
+
+            nome +
+
+            "?\n\n" +
+
+            "A senha será definida como TEMP " +
+
+            "e o usuário será obrigado a criar " +
+
+            "uma nova senha no próximo acesso."
+
+        );
+
+    }
+
+
+    /* =====================================================
+       CONFIRMAR EXCLUSÃO
+    ====================================================== */
+
+    function confirmarExclusao(
+        nome
+    ) {
+
+
+        return confirm(
+
+            "Tem certeza que deseja excluir o usuário " +
+
+            nome +
+
+            "?"
+
+        );
+
+    }
+
+
+    /* =====================================================
+       INICIALIZAÇÃO
+    ====================================================== */
+
+    mostrarPermissoesSelecionadas();
+
+
+</script>
+
+
+<script>
+(function () {
+    // ---- CSRF: injeta o token em todo form POST ----
+    var meta = document.querySelector('meta[name="csrf-token"]');
+    var token = meta ? meta.getAttribute('content') : null;
+    if (token) {
+        document.querySelectorAll('form').forEach(function (form) {
+            var metodo = (form.getAttribute('method') || 'GET').toUpperCase();
+            if (metodo !== 'POST') { return; }
+            if (form.querySelector('input[name="csrf_token"]')) { return; }
+            var campo = document.createElement('input');
+            campo.type = 'hidden';
+            campo.name = 'csrf_token';
+            campo.value = token;
+            form.appendChild(campo);
+        });
+    }
+
+    // ---- Menu mobile (hamburguer) - só existe no layout com sidebar (index.html) ----
+    var botaoMenu = document.getElementById('botaoMenuMobile');
+    var sidebar = document.getElementById('sidebarPrincipal');
+    var backdrop = document.getElementById('sidebarBackdrop');
+
+    function fecharMenu() {
+        if (sidebar) { sidebar.classList.remove('aberto'); }
+        if (backdrop) { backdrop.classList.remove('ativo'); }
+        if (botaoMenu) { botaoMenu.setAttribute('aria-expanded', 'false'); }
+    }
+
+    function alternarMenu() {
+        if (!sidebar) { return; }
+        var abrindo = !sidebar.classList.contains('aberto');
+        sidebar.classList.toggle('aberto', abrindo);
+        if (backdrop) { backdrop.classList.toggle('ativo', abrindo); }
+        if (botaoMenu) { botaoMenu.setAttribute('aria-expanded', abrindo ? 'true' : 'false'); }
+    }
+
+    if (botaoMenu) { botaoMenu.addEventListener('click', alternarMenu); }
+    if (backdrop) { backdrop.addEventListener('click', fecharMenu); }
+    if (sidebar) {
+        sidebar.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', fecharMenu);
+        });
+    }
+
+    // ---- Evita duplo envio ----
+    // Ao submeter um formulário válido (nenhum outro handler já cancelou
+    // via preventDefault/confirm/return false), desabilita os botões de
+    // envio e mostra um texto de carregamento. Roda por último (script
+    // no fim do body), então "event.defaultPrevented" já reflete o
+    // resultado de validações anteriores do próprio formulário.
+    document.querySelectorAll('form').forEach(function (form) {
+        form.addEventListener('submit', function (evento) {
+            if (evento.defaultPrevented) { return; }
+            if (form.hasAttribute('data-sem-bloqueio')) { return; }
+            var botoes = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+            botoes.forEach(function (botao) {
+                if (botao.disabled) { return; }
+                var textoCarregando = botao.getAttribute('data-texto-carregando') || 'Enviando...';
+                if (botao.tagName === 'BUTTON') {
+                    botao.innerHTML = textoCarregando;
+                } else {
+                    botao.value = textoCarregando;
+                }
+                botao.disabled = true;
+            });
+        });
+    });
+})();
+</script>
+</body>
+
+</html>
